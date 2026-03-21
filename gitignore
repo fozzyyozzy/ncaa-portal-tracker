@@ -1,0 +1,24 @@
+# Secrets — NEVER commit
+.streamlit/secrets.toml
+
+# API cache — regenerates automatically
+cbbd_cache.json
+portal_entries.json
+portal_moves.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Local Jupyter notebooks (keep .py files, not notebooks)
+*.ipynb
+
+# Output files
+portal_scores*.csv
+portal_scores_v2.csv
+
+# OS files
+.DS_Store
+Thumbs.db
