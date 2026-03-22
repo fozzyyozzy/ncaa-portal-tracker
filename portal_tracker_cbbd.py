@@ -281,6 +281,60 @@ def load_data(api_key=None, use_cache=True):
     df["ConfMult_raw"] = df["Team"].str.lower().map(
         lambda t: conf_map.get(t, median_mult))
 
+    # ── Auto-enrich eligibility from Book2_enriched.csv ──
+    df = _enrich_eligibility(df)
+
+    return df
+
+
+def _enrich_eligibility(df):
+    """
+    Merge eligibility (FR/SO/JR/SR) from Book2_enriched.csv.
+    CBBD does not provide class year in their stats endpoint.
+    Falls back gracefully if the file is not present.
+    """
+    import re
+
+    # Look for enriched CSV in same folder as this script
+    base = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        os.path.join(base, "Book2_enriched.csv"),
+        os.path.join(base, "..", "Book2_enriched.csv"),
+        "Book2_enriched.csv",
+    ]
+    elig_path = next((p for p in candidates if os.path.exists(p)), None)
+
+    if elig_path is None:
+        df["Elig"] = "UNK"
+        return df
+
+    try:
+        elig_df = pd.read_csv(elig_path, encoding="utf-8-sig",
+                               usecols=["Player", "Elig"])
+    except Exception:
+        df["Elig"] = "UNK"
+        return df
+
+    def _norm(name):
+        name = str(name).lower().strip()
+        name = re.sub(r"\b(jr\.?|sr\.?|ii|iii|iv)\b", "", name)
+        name = re.sub(r"[^a-z ]", "", name)
+        return re.sub(r"\s+", " ", name).strip()
+
+    # Build name → elig lookup
+    lookup = {
+        _norm(row["Player"]): row["Elig"]
+        for _, row in elig_df.iterrows()
+        if str(row.get("Elig", "UNK")) not in ("UNK", "", "nan")
+    }
+
+    df = df.copy()
+    df["Elig"] = df["Player"].apply(
+        lambda n: lookup.get(_norm(n), "UNK"))
+
+    matched = (df["Elig"] != "UNK").sum()
+    print(f"  Eligibility: {matched:,}/{len(df):,} players matched "
+          f"from {os.path.basename(elig_path)}")
     return df
 
 

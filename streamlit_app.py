@@ -169,23 +169,41 @@ def colour_scale(val, lo, hi, invert=False):
 
 
 def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
-    """Apply per-column gradient styling to a display dataframe."""
+    """Apply per-column gradient styling. Coerces to numeric to avoid string errors."""
     if shade_cols_high is None: shade_cols_high = []
     if shade_cols_low  is None: shade_cols_low  = []
 
-    styler = df_display.style
+    # Work on a clean numeric copy for styling only
+    df_num = df_display.copy()
+    for col in shade_cols_high + shade_cols_low:
+        if col in df_num.columns:
+            df_num[col] = pd.to_numeric(df_num[col], errors="coerce")
+
+    styler = df_num.style
 
     for col in shade_cols_high:
-        if col not in df_display.columns: continue
-        series = pd.to_numeric(df_display[col], errors="coerce")
-        lo, hi = series.quantile(0.05), series.quantile(0.95)
+        if col not in df_num.columns:
+            continue
+        series = df_num[col].dropna()
+        if len(series) < 2:
+            continue
+        lo = float(series.quantile(0.05))
+        hi = float(series.quantile(0.95))
+        if lo == hi:
+            continue
         styler = styler.background_gradient(
             subset=[col], cmap="RdYlGn", vmin=lo, vmax=hi)
 
     for col in shade_cols_low:
-        if col not in df_display.columns: continue
-        series = pd.to_numeric(df_display[col], errors="coerce")
-        lo, hi = series.quantile(0.05), series.quantile(0.95)
+        if col not in df_num.columns:
+            continue
+        series = df_num[col].dropna()
+        if len(series) < 2:
+            continue
+        lo = float(series.quantile(0.05))
+        hi = float(series.quantile(0.95))
+        if lo == hi:
+            continue
         styler = styler.background_gradient(
             subset=[col], cmap="RdYlGn_r", vmin=lo, vmax=hi)
 
@@ -246,14 +264,17 @@ streamlit run streamlit_app.py
         # Eligibility
         st.markdown('<p class="section-header">Eligibility</p>',
                     unsafe_allow_html=True)
-        elig_opts = ["FR", "SO", "JR", "SR"]
+        ordered = ["FR", "SO", "JR", "SR", "GR", "UNK"]
         if "Elig" in df.columns:
-            all_eligs = sorted(df["Elig"].dropna().unique())
-            elig_opts = [e for e in ["FR","SO","JR","SR","GR","UNK"]
-                         if e in all_eligs]
+            present  = set(df["Elig"].astype(str).unique())
+            elig_opts = [e for e in ordered if e in present]
+        else:
+            elig_opts = ["FR", "SO", "JR", "SR"]
+        # Default: FR/SO/JR/SR only — exclude GR and UNK
+        default_elig = [e for e in elig_opts
+                        if e not in ("GR", "UNK")]
         elig_sel = st.multiselect("Year", elig_opts,
-                                   default=[e for e in elig_opts
-                                            if e != "GR"],
+                                   default=default_elig,
                                    label_visibility="collapsed")
 
         # Position
@@ -274,6 +295,15 @@ streamlit run streamlit_app.py
             conf_opts += sorted(df["Conference"].dropna().unique())
         conf_sel = st.selectbox("Conference", conf_opts,
                                  label_visibility="collapsed")
+
+        # Team
+        st.markdown('<p class="section-header">Team</p>',
+                    unsafe_allow_html=True)
+        team_opts = ["All"]
+        if "Team" in df.columns:
+            team_opts += sorted(df["Team"].dropna().unique())
+        team_dd = st.selectbox("Team", team_opts,
+                                label_visibility="collapsed")
 
         st.divider()
 
@@ -317,27 +347,45 @@ streamlit run streamlit_app.py
     # ── Apply filters ──
     filtered = df.copy()
 
+    # Eligibility — simple and explicit
     if "Elig" in filtered.columns and elig_sel:
-        filtered = filtered[filtered["Elig"].isin(elig_sel + ["", "UNK"])]
+        filtered = filtered[
+            filtered["Elig"].astype(str).isin([str(e) for e in elig_sel])]
+
+    # Position
     if "Position" in filtered.columns and pos_sel:
-        filtered = filtered[filtered["Position"].isin(pos_sel) |
-                            filtered["Position"].isna() |
-                            (filtered["Position"] == "")]
+        filtered = filtered[
+            filtered["Position"].isin(pos_sel) |
+            filtered["Position"].isna() |
+            (filtered["Position"] == "")]
+
+    # Conference
     if conf_sel != "All" and "Conference" in filtered.columns:
         filtered = filtered[filtered["Conference"] == conf_sel]
+
+    # Team dropdown
+    if team_dd != "All" and "Team" in filtered.columns:
+        filtered = filtered[filtered["Team"] == team_dd]
+
+    # Min portal score
     if "PortalScore" in filtered.columns:
-        filtered = filtered[pd.to_numeric(
-            filtered["PortalScore"], errors="coerce").fillna(0) >= min_score]
+        filtered = filtered[
+            pd.to_numeric(filtered["PortalScore"], errors="coerce"
+                          ).fillna(0) >= min_score]
+
+    # Player search
     if player_search:
         filtered = filtered[
             filtered["Player"].str.lower().str.contains(
                 player_search.lower(), na=False)]
+
+    # Team search
     if team_search:
         filtered = filtered[
             filtered["Team"].str.lower().str.contains(
                 team_search.lower(), na=False)]
 
-    # Sort
+    # Sort — always last
     sort_map = {
         "S1: Portal Score": "PortalScore",
         "S2: Final Score":  "FinalScore",
@@ -349,61 +397,94 @@ streamlit run streamlit_app.py
     }
     sort_col = sort_map.get(sort_by, "PortalScore")
     if sort_col in filtered.columns:
-        filtered = filtered.sort_values(sort_col, ascending=False,
-                                         na_position="last")
+        filtered = filtered.sort_values(
+            sort_col, ascending=False, na_position="last")
     filtered = filtered.reset_index(drop=True)
 
-    # ── Summary metrics ──
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
-    total = len(df)
-    shown = len(filtered)
-    avg_s = filtered["PortalScore"].mean() if "PortalScore" in filtered.columns else 0
-    top_s = filtered["PortalScore"].max()  if "PortalScore" in filtered.columns else 0
-    elite = len(filtered[filtered.get("PortalScore", pd.Series([0])) >= 85]) if "PortalScore" in filtered.columns else 0
-    high  = len(filtered[(filtered.get("PortalScore", pd.Series([0])) >= 70) &
-                          (filtered.get("PortalScore", pd.Series([0])) < 85)]) if "PortalScore" in filtered.columns else 0
+    # ── Summary metrics bar ──
+    ps  = pd.to_numeric(filtered["PortalScore"].values
+                        if "PortalScore" in filtered.columns
+                        else [], errors="coerce")
+    fs  = pd.to_numeric(filtered["FinalScore"].values
+                        if "FinalScore" in filtered.columns
+                        else [], errors="coerce")
+    nv  = pd.to_numeric(filtered["NILValue"].values
+                        if "NILValue" in filtered.columns
+                        else [], errors="coerce")
+    ps  = pd.Series(ps).dropna()
+    fs  = pd.Series(fs).dropna()
+    nv  = pd.Series(nv).dropna()
 
-    col1.metric("Total Players", f"{total:,}")
-    col2.metric("Shown",         f"{shown:,}")
-    col3.metric("Avg S1 Score",  f"{avg_s:.1f}")
-    col4.metric("Top S1 Score",  f"{top_s:.1f}")
-    col5.metric("🔵 Elite (85+)", elite)
-    col6.metric("🟢 High (70–84)", high)
+    c1, c2, c3, c4, c5, c6, c7, c8, c9 = st.columns(9)
+    c1.metric("Total",          f"{len(df):,}")
+    c2.metric("Shown",          f"{len(filtered):,}")
+    c3.metric("S1 Avg",         f"{ps.mean():.1f}"  if len(ps) else "—")
+    c4.metric("S1 Top",         f"{ps.max():.1f}"   if len(ps) else "—")
+    c5.metric("🔵 Elite (85+)", int((ps >= 85).sum()) if len(ps) else 0)
+    c6.metric("🟢 High (70+)",  int((ps >= 70).sum()) if len(ps) else 0)
+    c7.metric("S2 Avg Final",   f"{fs.mean():.1f}"  if len(fs) else "—")
+    c8.metric("S2 Top Final",   f"{fs.max():.1f}"   if len(fs) else "—")
+    c9.metric("Avg NIL Est.",   fmt_nil(nv.mean())  if len(nv) else "—")
 
     # ── Tabs ──
-    tab_lb, tab_team, tab_conf, tab_tiers, tab_heatmap = st.tabs([
+    tab_lb, tab_team, tab_conf = st.tabs([
         "🏆 Leaderboard",
         "🏫 By Team",
         "🗺 By Conference",
-        "📊 Tier View",
-        "▦ Heatmap",
     ])
 
     # ════════════════════════════════════════
     #  LEADERBOARD TAB
     # ════════════════════════════════════════
     with tab_lb:
-        # Build display dataframe
+        # ── Column selection ──
         id_cols   = ["Player", "Team", "Conference", "Position", "Elig", "G"]
-        stat_cols = ["PTS", "TS%", "eFGPct", "USG%"]
-        s1_cols   = ["PER", "PORPAG", "WS40", "DEF_comp",
-                     "PortalScore"] if show_system1 else []
-        s2_cols   = ["KenPomRank", "KenPomMult", "BaseScore",
-                     "PRACombo", "FinalScore", "NILValue"] if show_system2 else []
+        stat_cols = ["PTS", "Tot", "AST", "TS%", "eFGPct", "USG%"]
+        s1_cols   = (["PER", "PORPAG", "WS40_cbbd", "DEF_comp", "PortalScore"]
+                     if show_system1 else [])
+        s2_cols   = (["KenPomRank", "KenPomMult", "BaseScore",
+                      "PRACombo", "FinalScore", "NILValue"]
+                     if show_system2 else [])
 
-        all_cols = id_cols + stat_cols + s1_cols + s2_cols
-        avail    = [c for c in all_cols if c in filtered.columns]
-        display  = filtered[avail].copy().head(500)
+        want  = id_cols + stat_cols + s1_cols + s2_cols
+        avail = [c for c in want if c in filtered.columns]
+        display = filtered[avail].head(500).copy()
 
-        # Format NIL
+        # ── Add Elig if missing ──
+        if "Elig" not in display.columns:
+            display.insert(len(display.columns), "Elig", "")
+
+        # ── Format ──
+        fmt1 = ["PTS", "Tot", "AST", "TS%", "eFGPct", "USG%",
+                "PER", "PORPAG", "WS40_cbbd", "DEF_comp",
+                "BaseScore", "PRACombo"]
+        fmt2 = ["PortalScore", "FinalScore"]
+
+        for c in fmt1:
+            if c in display.columns:
+                display[c] = pd.to_numeric(
+                    display[c], errors="coerce").round(1)
+        for c in fmt2:
+            if c in display.columns:
+                display[c] = pd.to_numeric(
+                    display[c], errors="coerce").round(2)
+        if "KenPomRank" in display.columns:
+            display["KenPomRank"] = (
+                pd.to_numeric(display["KenPomRank"], errors="coerce")
+                .apply(lambda x: int(x) if pd.notna(x) else pd.NA))
+        if "KenPomMult" in display.columns:
+            display["KenPomMult"] = pd.to_numeric(
+                display["KenPomMult"], errors="coerce").round(3)
         if "NILValue" in display.columns:
             display["NILValue"] = display["NILValue"].apply(fmt_nil)
 
-        # Rename for clarity
+        # ── Rename AFTER formatting ──
         rename = {
+            "Tot":        "REB",
+            "AST":        "AST",
             "eFGPct":     "eFG%",
             "DEF_comp":   "DEF",
-            "WS40":       "WS/40",
+            "WS40_cbbd":  "WS/40",
             "PortalScore":"S1 Score",
             "KenPomRank": "KP Rank",
             "KenPomMult": "KP ×",
@@ -415,27 +496,92 @@ streamlit run streamlit_app.py
         display = display.rename(columns=rename)
         display.insert(0, "#", range(1, len(display) + 1))
 
-        # Apply heatmap styling
-        shade_high = ["PTS", "TS%", "eFG%", "USG%", "PER", "PORPAG",
-                      "WS/40", "S1 Score", "S2 Final", "Base", "PRA"]
-        shade_low  = ["KP Rank"]
+        # ── Column tooltips ──
+        col_help = {
+            "#":         "Rank by selected sort column",
+            "Player":    "Player name",
+            "Team":      "Current team",
+            "Conference":"Conference",
+            "Position":  "Position (G/F/C)",
+            "Elig":      "Eligibility year (FR/SO/JR/SR)",
+            "G":         "Games played",
+            "PTS":       "Points per game",
+            "REB":       "Total rebounds per game",
+            "AST":       "Assists per game",
+            "TS%":       "True Shooting % — measures shooting efficiency accounting for FG, 3P, and FT",
+            "eFG%":      "Effective Field Goal % — adjusts FG% to account for 3-pointers being worth more",
+            "USG%":      "Usage Rate — % of team plays used by player while on court",
+            "PER":       "Player Efficiency Rating — per-minute production normalized to league avg = 15.0",
+            "PORPAG":    "Points Over Replacement Per Adjusted Game — CBBD native advanced metric",
+            "WS/40":     "Win Shares per 40 minutes — estimated wins contributed per 40 min played",
+            "DEF":       "Defensive Composite — STL+BLK per 40 min + player defensive rating",
+            "S1 Score":  "System 1: Portal Score (0–100) — normalized composite. Elite = 85+",
+            "KP Rank":   "KenPom team ranking — lower is better",
+            "KP ×":      "KenPom multiplier applied to System 2 score (1–50: ×1.0, 300+: ×0.70)",
+            "Base":      "S2 Base Score = (PER + WS_total) + ((eFG% + TS%) / 4)",
+            "PRA":       "S2 PRA Combo = (PPG×0.5) + (RPG×0.33) + (APG×0.5)",
+            "S2 Final":  "System 2: Custom Formula = (Base + PRA) × KenPom Multiplier",
+            "NIL Est.":  "Estimated NIL value based on S2 Final Score. Tiered market model. Not financial advice.",
+        }
+
+        # Display tooltips as caption row
+        st.markdown(
+            " &nbsp;|&nbsp; ".join(
+                f"**{c}**: {col_help[c]}"
+                for c in display.columns if c in col_help
+            ),
+            unsafe_allow_html=True
+        ) if False else None   # disabled inline — shown in expander below
+
+        with st.expander("ℹ️ Column Definitions", expanded=False):
+            col_a, col_b = st.columns(2)
+            items = [(k, v) for k, v in col_help.items()
+                     if k in display.columns and k != "#"]
+            half  = len(items) // 2
+            with col_a:
+                for k, v in items[:half]:
+                    st.markdown(f"**{k}** — {v}")
+            with col_b:
+                for k, v in items[half:]:
+                    st.markdown(f"**{k}** — {v}")
+
+        # ── Shading ──
+        shade_high = [c for c in ["PTS", "REB", "AST", "TS%", "eFG%",
+                                   "USG%", "PER", "PORPAG", "WS/40",
+                                   "S1 Score", "S2 Final", "Base", "PRA"]
+                      if c in display.columns]
+        shade_low  = [c for c in ["KP Rank"] if c in display.columns]
+
+        # ── Format map ──
+        fmt_map = {}
+        for c in display.columns:
+            if c in ("#", "Player", "Team", "Conference",
+                     "Position", "Elig", "NIL Est."):
+                continue
+            elif c == "G":
+                fmt_map[c] = "{:.0f}"
+            elif c in ("S1 Score", "S2 Final"):
+                fmt_map[c] = "{:.2f}"
+            elif c == "KP ×":
+                fmt_map[c] = "{:.3f}"
+            elif c == "KP Rank":
+                fmt_map[c] = "{:.0f}"
+            else:
+                fmt_map[c] = "{:.1f}"
 
         if show_heatmap:
-            st.dataframe(
-                style_dataframe(display, shade_high, shade_low),
-                use_container_width=True,
-                height=520,
-                hide_index=True,
-            )
-        else:
-            st.dataframe(display, use_container_width=True,
+            styled = style_dataframe(display, shade_high, shade_low)
+            styled = styled.format(fmt_map, na_rep="—")
+            st.dataframe(styled, use_container_width=True,
                          height=520, hide_index=True)
+        else:
+            st.dataframe(
+                display.style.format(fmt_map, na_rep="—"),
+                use_container_width=True, height=520, hide_index=True)
 
-        # Download button
-        csv = filtered.to_csv(index=False)
         st.download_button(
             label="💾 Download Full Results CSV",
-            data=csv,
+            data=filtered.to_csv(index=False),
             file_name=f"portal_scores_{date.today()}.csv",
             mime="text/csv",
         )
@@ -447,25 +593,33 @@ streamlit run streamlit_app.py
         if len(filtered) == 0:
             st.info("No players match current filters.")
         else:
-            grp = (filtered.groupby("Team")
-                           .apply(lambda g: pd.Series({
-                               "Conference": g["Conference"].iloc[0]
-                                             if "Conference" in g.columns else "",
-                               "Players":    len(g),
-                               "Avg S1":     g["PortalScore"].mean().round(2)
-                                             if "PortalScore" in g.columns else 0,
-                               "Top S1":     g["PortalScore"].max().round(2)
-                                             if "PortalScore" in g.columns else 0,
-                               "Avg S2":     g["FinalScore"].mean().round(2)
-                                             if "FinalScore" in g.columns else 0,
-                               "Best Player":g.loc[g["PortalScore"].idxmax(),
-                                               "Player"]
-                                             if "PortalScore" in g.columns else "",
-                           }))
-                           .reset_index()
-                           .sort_values("Avg S1", ascending=False))
+            def safe_round(val, n=2):
+                try:
+                    return round(float(val), n)
+                except Exception:
+                    return 0.0
+
+            rows_team = []
+            for team, g in filtered.groupby("Team"):
+                ps = pd.to_numeric(g.get("PortalScore", pd.Series([0])),
+                                   errors="coerce").dropna()
+                fs = pd.to_numeric(g.get("FinalScore",  pd.Series([0])),
+                                   errors="coerce").dropna()
+                best_idx = ps.idxmax() if len(ps) > 0 else None
+                rows_team.append({
+                    "Team":        team,
+                    "Conference":  g["Conference"].iloc[0]
+                                   if "Conference" in g.columns else "",
+                    "Players":     len(g),
+                    "Avg S1":      safe_round(ps.mean()) if len(ps) else 0,
+                    "Top S1":      safe_round(ps.max())  if len(ps) else 0,
+                    "Avg S2":      safe_round(fs.mean()) if len(fs) else 0,
+                    "Best Player": g.loc[best_idx, "Player"]
+                                   if best_idx is not None else "",
+                })
+            grp = pd.DataFrame(rows_team).sort_values("Avg S1", ascending=False)
             st.dataframe(
-                style_dataframe(grp, ["Avg S1", "Top S1", "Avg S2"],  []),
+                style_dataframe(grp, ["Avg S1", "Top S1", "Avg S2"], []),
                 use_container_width=True, height=500, hide_index=True)
 
     # ════════════════════════════════════════
@@ -475,159 +629,99 @@ streamlit run streamlit_app.py
         if "Conference" not in filtered.columns or len(filtered) == 0:
             st.info("Conference data not available.")
         else:
-            rows = []
-            for conf, grp in filtered.groupby("Conference"):
-                top = grp.loc[grp["PortalScore"].idxmax()] \
-                      if "PortalScore" in grp.columns else grp.iloc[0]
-                rows.append({
+            rows_conf = []
+            for conf, g in filtered.groupby("Conference"):
+                ps = pd.to_numeric(g.get("PortalScore", pd.Series([0])),
+                                   errors="coerce").dropna()
+                best_idx = ps.idxmax() if len(ps) > 0 else None
+                top_player = (f"{g.loc[best_idx, 'Player']} "
+                              f"({ps.max():.1f})"
+                              if best_idx is not None else "")
+                rows_conf.append({
                     "Conference": conf,
-                    "Players":    len(grp),
-                    "Avg S1":     grp["PortalScore"].mean().round(2)
-                                  if "PortalScore" in grp.columns else 0,
-                    "Elite":      len(grp[grp.get("PortalScore",
-                                    pd.Series([0])) >= 85]),
-                    "High":       len(grp[(grp.get("PortalScore",
-                                    pd.Series([0])) >= 70) &
-                                         (grp.get("PortalScore",
-                                    pd.Series([0])) < 85)]),
-                    "Top Player": f"{top['Player']} ({top.get('PortalScore',0):.1f})",
+                    "Players":    len(g),
+                    "Avg S1":     round(float(ps.mean()), 2) if len(ps) else 0,
+                    "Elite":      int((ps >= 85).sum()),
+                    "High":       int(((ps >= 70) & (ps < 85)).sum()),
+                    "Top Player": top_player,
                 })
-            conf_df = pd.DataFrame(rows).sort_values("Avg S1", ascending=False)
+            conf_df = pd.DataFrame(rows_conf).sort_values(
+                "Avg S1", ascending=False)
             st.dataframe(
                 style_dataframe(conf_df, ["Avg S1", "Elite", "High"], []),
                 use_container_width=True, height=500, hide_index=True)
 
-    # ════════════════════════════════════════
-    #  TIER VIEW TAB
-    # ════════════════════════════════════════
-    with tab_tiers:
-        tiers = [
-            ("🔵 ELITE  (85–100)", 85, 101, "#58a6ff"),
-            ("🟢 HIGH   (70–84)",  70,  85, "#3fb950"),
-            ("🟡 SOLID  (55–69)",  55,  70, "#d29922"),
-            ("🟠 FRINGE (40–54)",  40,  55, "#e3b341"),
-            ("⚫ DEPTH  (<40)",      0,  40, "#8b949e"),
-        ]
-        for label, lo, hi, colour in tiers:
-            tier_df = filtered[
-                (filtered.get("PortalScore", pd.Series([0])) >= lo) &
-                (filtered.get("PortalScore", pd.Series([0])) < hi)
-            ] if "PortalScore" in filtered.columns else pd.DataFrame()
+    # ── Methodology & Disclaimer ──
+    st.divider()
+    with st.expander("📖 Methodology & Scoring Guide", expanded=False):
+        st.markdown("""
+### Two Scoring Systems
 
-            with st.expander(f"{label}  —  {len(tier_df):,} players",
-                             expanded=(lo >= 70)):
-                if len(tier_df) > 0:
-                    top10 = tier_df.sort_values(
-                        "PortalScore", ascending=False).head(10)
-                    cols_show = ["Player", "Team", "Conference",
-                                 "Position", "PortalScore"]
-                    if "FinalScore" in top10.columns:
-                        cols_show.append("FinalScore")
-                    if "NILValue" in top10.columns:
-                        top10 = top10.copy()
-                        top10["NIL Est."] = top10["NILValue"].apply(fmt_nil)
-                        cols_show.append("NIL Est.")
-                    avail = [c for c in cols_show if c in top10.columns]
-                    st.dataframe(top10[avail].reset_index(drop=True),
-                                 use_container_width=True, hide_index=True)
+This tool computes **two independent scores** for every player:
 
-    # ════════════════════════════════════════
-    #  HEATMAP TAB  (Plotly)
-    # ════════════════════════════════════════
-    with tab_heatmap:
-        try:
-            import plotly.graph_objects as go
-            import plotly.express as px
+---
 
-            top50 = filtered.head(50).copy()
-            if len(top50) == 0:
-                st.info("No data to display.")
-            else:
-                hm_cols_cfg = [
-                    ("TS%",      "TS%",        False),
-                    ("eFG%",     "eFGPct",     False),
-                    ("PER",      "PER",        False),
-                    ("PORPAG",   "PORPAG",     False),
-                    ("USG%",     "USG%",       False),
-                    ("KP Rank",  "KenPomRank", True),   # inverted
-                    ("Base",     "BaseScore",  False),
-                    ("PRA",      "PRACombo",   False),
-                    ("S2 Final", "FinalScore", False),
-                    ("S1 Score", "PortalScore",False),
-                ]
-                avail_hm = [(d, c, inv) for d, c, inv in hm_cols_cfg
-                            if c in top50.columns]
+#### 🔵 System 1 — Portal Score (0–100)
+A normalized composite score where the D1 average sits around **50** and elite prospects score **85+**.
 
-                players = [f"{i+1}. {r['Player']}" for i, r
-                           in top50.iterrows()]
+| Metric | Weight | Source |
+|--------|--------|--------|
+| PER (Player Efficiency Rating) | 25% | Computed from box score, normalized to avg = 15 |
+| True Shooting % | 20% | CBBD native |
+| Win Shares per 40 min | 15% | CBBD native |
+| Usage Rate | 10% | CBBD native, soft-capped at 28% |
+| Defensive Composite | 15% | STL+BLK per 40 + player DRtg |
+| Conference Strength | 15% | Live adjusted efficiency (Barttorvik) |
 
-                # Build normalised z-matrix
-                z_vals    = []
-                text_vals = []
-                col_labels = []
+Tiers: 🔵 Elite 85+ &nbsp;|&nbsp; 🟢 High 70–84 &nbsp;|&nbsp; 🟡 Solid 55–69 &nbsp;|&nbsp; 🟠 Fringe 40–54 &nbsp;|&nbsp; ⚫ Depth <40
 
-                for disp, df_col, invert in avail_hm:
-                    col_labels.append(disp)
-                    series = pd.to_numeric(top50[df_col], errors="coerce")
-                    lo = series.quantile(0.05)
-                    hi = series.quantile(0.95)
-                    rng = hi - lo if hi != lo else 1
-                    norm = ((series - lo) / rng).clip(0, 1)
-                    if invert: norm = 1 - norm
+---
 
-                    z_vals.append(norm.tolist())
+#### 🟣 System 2 — Custom Score (raw scale)
+A production-based formula emphasizing scoring efficiency and volume:
 
-                    # Format values for hover
-                    col_text = []
-                    for v in series:
-                        if pd.isna(v):
-                            col_text.append("—")
-                        elif df_col == "NILValue":
-                            col_text.append(fmt_nil(v))
-                        elif df_col == "KenPomRank":
-                            col_text.append(f"#{int(v)}")
-                        else:
-                            col_text.append(f"{float(v):.1f}")
-                    text_vals.append(col_text)
+```
+Base Score  = (PER + WS_total) + ((eFG% + TS%) / 4)
+PRA Combo   = (PPG × 0.5) + (RPG × 0.33) + (APG × 0.5)
+Combo Score = Base Score + PRA Combo
+Final Score = Combo Score × KenPom Multiplier
+```
 
-                fig = go.Figure(go.Heatmap(
-                    z=z_vals,
-                    x=players,
-                    y=col_labels,
-                    text=text_vals,
-                    texttemplate="%{text}",
-                    textfont={"size": 9, "color": "black"},
-                    colorscale=[
-                        [0.0,  "#da3633"],
-                        [0.5,  "#d29922"],
-                        [1.0,  "#3fb950"],
-                    ],
-                    showscale=True,
-                    colorbar=dict(
-                        title="Low → High",
-                        tickvals=[0, 0.5, 1],
-                        ticktext=["Low", "Mid", "High"],
-                        len=0.5,
-                    ),
-                    hoverongaps=False,
-                ))
-                fig.update_layout(
-                    title=f"Density Heatmap — Top {len(top50)} Players",
-                    paper_bgcolor="#0d1117",
-                    plot_bgcolor="#0d1117",
-                    font=dict(color="#e6edf3", size=10),
-                    height=max(400, len(avail_hm) * 45 + 100),
-                    xaxis=dict(side="top", tickangle=-35),
-                    margin=dict(l=80, r=40, t=80, b=20),
-                )
-                st.plotly_chart(fig, use_container_width=True)
+**KenPom Multiplier** (based on team ranking):
 
-                st.caption("Each cell is normalised relative to the column's "
-                           "5th–95th percentile range. KP Rank is inverted "
-                           "(lower rank = greener).")
+| Rank | Multiplier |
+|------|-----------|
+| 1–50 | 1.00 |
+| 51–100 | 0.95 |
+| 101–150 | 0.90 |
+| 151–200 | 0.85 |
+| 201–250 | 0.80 |
+| 251–300 | 0.75 |
+| 300+ | 0.70 |
 
-        except ImportError:
-            st.warning("Install plotly for the heatmap: `pip install plotly`")
+---
+
+#### 💰 NIL Estimate
+Market-based tiered estimate for 2025–26:
+- **Final ≥ 50** (Elite): $1M + $150K per point above 50
+- **Final ≥ 38** (High): $400K + $50K per point above 38
+- **Final ≥ 28** (Mid): $150K + $25K per point above 28
+- **Final < 28** (Role): $50K floor
+
+> ⚠️ NIL estimates are analytical approximations based on publicly available
+> market data and player performance metrics. They are not actual NIL valuations
+> and should not be used as financial guidance.
+
+---
+
+#### Data Sources
+- **Player stats**: [College Basketball Data (CBBD)](https://collegebasketballdata.com) — updated daily
+- **Team efficiency**: Barttorvik adjusted ratings via CBBD
+- **Team rankings**: KenPom (kenpom.com) — manually updated
+- **Eligibility**: ESPN roster data via CBBD enrichment
+
+*Data refreshes every 24 hours. Season: 2025–26.*
+        """)
 
     # ── Footer ──
     st.divider()

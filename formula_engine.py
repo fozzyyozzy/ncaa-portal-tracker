@@ -69,10 +69,83 @@ def _norm(name):
 def _fuzzy(a, b):
     return SequenceMatcher(None, _norm(a), _norm(b)).ratio()
 
+# Manual overrides: CBBD team name (lowercase) → KenPom team name (normalized)
+# Add entries here whenever a team name mismatch is discovered
+TEAM_NAME_OVERRIDES = {
+    "uconn":               "connecticut",
+    "connecticut":         "connecticut",
+    "lsu":                 "lsu",
+    "ucf":                 "ucf",
+    "usc":                 "usc",
+    "unlv":                "unlv",
+    "utep":                "utep",
+    "vcu":                 "vcu",
+    "smu":                 "smu",
+    "tcu":                 "tcu",
+    "byu":                 "byu",
+    "uab":                 "uab",
+    "uncw":                "unc wilmington",
+    "unc":                 "north carolina",
+    "nc state":            "nc state",
+    "fiu":                 "fiu",
+    "fau":                 "fau",
+    "fgcu":                "florida gulf coast",
+    "umass":               "massachusetts",
+    "umbc":                "umbc",
+    "umkc":                "kansas city",
+    "utsa":                "utsa",
+    "utrgv":               "ut rio grande valley",
+    "ut martin":           "ut martin",
+    "uc santa barbara":    "uc santa barbara",
+    "uc irvine":           "uc irvine",
+    "uc san diego":        "uc san diego",
+    "uc davis":            "uc davis",
+    "uc riverside":        "uc riverside",
+    "cal poly":            "cal poly",
+    "cal baptist":         "california baptist",
+    "st. john's":          "st. john's",
+    "saint louis":         "saint louis",
+    "saint mary's":        "saint mary's",
+    "mount st. mary's":    "mount st. mary's",
+    "loyola chicago":      "loyola chicago",
+    "loyola maryland":     "loyola md",
+    "prairie view a&m":    "prairie view",
+    "texas a&m":           "texas a&m",
+    "miami":               "miami fl",
+    "miami fl":            "miami fl",
+    "miami oh":            "miami oh",
+    "florida int'l":       "fiu",
+    "purdue fort wayne":   "purdue fort wayne",
+    "iupui":               "iupui",
+    "northern kentucky":   "northern kentucky",
+    "south florida":       "south florida",
+    "central florida":     "ucf",
+}
+
 def _best_team_match(cbbd_team, kenpom_teams, threshold=0.70):
+    norm_cbbd = _norm(cbbd_team)
+
+    # Check manual overrides first
+    override = TEAM_NAME_OVERRIDES.get(norm_cbbd)
+    if override:
+        # Find the KenPom team that best matches the override
+        for kt in kenpom_teams:
+            if _norm(kt) == override:
+                return kt
+        # Fuzzy match on the override name
+        best_score, best_match = 0, None
+        for kt in kenpom_teams:
+            score = _fuzzy(override, kt)
+            if score > best_score:
+                best_score = score
+                best_match = kt
+        if best_score >= 0.80:
+            return best_match
+
+    # Standard fuzzy match
     best_score, best_match = 0, None
     for kt in kenpom_teams:
-        score = _fuzzy(cbbd_team, kt)
+        score = _fuzzy(norm_cbbd, kt)
         if score > best_score:
             best_score = score
             best_match = kt
