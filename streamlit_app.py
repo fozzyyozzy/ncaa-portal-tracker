@@ -169,17 +169,47 @@ def colour_scale(val, lo, hi, invert=False):
 
 
 def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
-    """Apply per-column gradient styling. Coerces to numeric to avoid string errors."""
+    """
+    Apply per-column Red→Yellow→Green shading using inline CSS.
+    Does NOT require matplotlib — works on all platforms.
+    """
     if shade_cols_high is None: shade_cols_high = []
     if shade_cols_low  is None: shade_cols_low  = []
 
-    # Work on a clean numeric copy for styling only
     df_num = df_display.copy()
     for col in shade_cols_high + shade_cols_low:
         if col in df_num.columns:
             df_num[col] = pd.to_numeric(df_num[col], errors="coerce")
 
     styler = df_num.style
+
+    def _cell_colour(val, lo, hi, invert=False):
+        """Return background-color CSS for a single value."""
+        try:
+            v = float(val)
+            if np.isnan(v) or hi == lo:
+                return ""
+            t = (v - lo) / (hi - lo)
+            t = max(0.0, min(1.0, t))
+            if invert:
+                t = 1.0 - t
+            # Red(218,54,51) → Yellow(210,153,34) → Green(63,185,80)
+            if t < 0.5:
+                s = t * 2
+                r = int(218 + (210 - 218) * s)
+                g = int(54  + (153 - 54)  * s)
+                b = int(51  + (34  - 51)  * s)
+            else:
+                s = (t - 0.5) * 2
+                r = int(210 + (63  - 210) * s)
+                g = int(153 + (185 - 153) * s)
+                b = int(34  + (80  - 34)  * s)
+            # Dark text on light colours, light text on dark
+            brightness = 0.299*r + 0.587*g + 0.114*b
+            fg = "#0d1117" if brightness > 100 else "#e6edf3"
+            return f"background-color: #{r:02x}{g:02x}{b:02x}; color: {fg}"
+        except Exception:
+            return ""
 
     for col in shade_cols_high:
         if col not in df_num.columns:
@@ -191,8 +221,9 @@ def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
         hi = float(series.quantile(0.95))
         if lo == hi:
             continue
-        styler = styler.background_gradient(
-            subset=[col], cmap="RdYlGn", vmin=lo, vmax=hi)
+        styler = styler.applymap(
+            lambda v, lo=lo, hi=hi: _cell_colour(v, lo, hi, invert=False),
+            subset=[col])
 
     for col in shade_cols_low:
         if col not in df_num.columns:
@@ -204,8 +235,9 @@ def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
         hi = float(series.quantile(0.95))
         if lo == hi:
             continue
-        styler = styler.background_gradient(
-            subset=[col], cmap="RdYlGn_r", vmin=lo, vmax=hi)
+        styler = styler.applymap(
+            lambda v, lo=lo, hi=hi: _cell_colour(v, lo, hi, invert=True),
+            subset=[col])
 
     return styler
 
