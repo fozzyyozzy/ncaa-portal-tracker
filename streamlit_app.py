@@ -97,8 +97,9 @@ def get_api_key():
 # ──────────────────────────────────────────────
 
 @st.cache_data(ttl=86400, show_spinner="Fetching player data from CBBD API...")
-def load_player_data(api_key, season=2026):
-    """Load and score all players. Cached for 24 hours."""
+def load_player_data(api_key, season=2026, cache_version=3):
+    """Load and score all players. Cached for 24 hours.
+    Bump cache_version to force a fresh pull on next load."""
     try:
         from portal_tracker_cbbd import load_data, apply_filters, compute_composite
         import portal_tracker_cbbd as pt
@@ -277,7 +278,7 @@ streamlit run streamlit_app.py
         return
 
     # ── Load data ──
-    df, err = load_player_data(api_key)
+    df, err = load_player_data(api_key, cache_version=3)
     if err:
         st.error(f"Data load error: {err}")
         if st.button("Retry"):
@@ -356,7 +357,13 @@ streamlit run streamlit_app.py
                                        label_visibility="collapsed")
 
         st.divider()
-
+        # Elig data status
+        if "Elig" in df.columns:
+            elig_known = (df["Elig"].astype(str) != "UNK").sum()
+            if elig_known > 100:
+                st.caption(f"✅ Elig data: {elig_known:,} players matched")
+            else:
+                st.caption("⚠️ Elig data not loaded — Book2_enriched.csv missing from repo")
         # Algorithm weights
         st.markdown("### ⚖️ Algorithm Weights (S1)")
         st.caption("Adjust and click Recalculate")
@@ -469,7 +476,7 @@ streamlit run streamlit_app.py
     #  LEADERBOARD TAB
     # ════════════════════════════════════════
     with tab_lb:
-        # ── Column selection ──
+        # ── Column selection — order matters, use want list directly ──
         id_cols   = ["Player", "Team", "Conference", "Position", "Elig", "G"]
         stat_cols = ["PTS", "Tot", "AST", "TS%", "eFGPct", "USG%"]
         s1_cols   = (["PER", "PORPAG", "WS40_cbbd", "DEF_comp", "PortalScore"]
@@ -479,12 +486,22 @@ streamlit run streamlit_app.py
                      if show_system2 else [])
 
         want  = id_cols + stat_cols + s1_cols + s2_cols
+        # Preserve the ORDER from want, only include cols that exist
         avail = [c for c in want if c in filtered.columns]
         display = filtered[avail].head(500).copy()
 
-        # ── Add Elig if missing ──
+        # ── Ensure Elig is present and in the right spot ──
         if "Elig" not in display.columns:
-            display.insert(len(display.columns), "Elig", "")
+            # Insert after Position if possible
+            if "Position" in display.columns:
+                pos_idx = display.columns.get_loc("Position") + 1
+            elif "G" in display.columns:
+                pos_idx = display.columns.get_loc("G")
+            else:
+                pos_idx = 4
+            display.insert(pos_idx, "Elig",
+                           filtered["Elig"] if "Elig" in filtered.columns
+                           else "UNK")
 
         # ── Format ──
         fmt1 = ["PTS", "Tot", "AST", "TS%", "eFGPct", "USG%",

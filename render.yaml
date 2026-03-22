@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ncaa-portal-tracker
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash start.sh
+    envVars:
+      - key: CBBD_API_KEY
+        sync: false
+    plan: free
