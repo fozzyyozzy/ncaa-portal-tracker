@@ -472,10 +472,12 @@ streamlit run streamlit_app.py
     c9.metric("Avg NIL Est.",   fmt_nil(nv.mean())  if len(nv) else "—")
 
     # ── Tabs ──
-    tab_lb, tab_team, tab_conf = st.tabs([
+    tab_lb, tab_team, tab_conf, tab_portal, tab_compare = st.tabs([
         "🏆 Leaderboard",
         "🏫 By Team",
         "🗺 By Conference",
+        "🚪 Players in Portal",
+        "⚖️ Compare Players",
     ])
 
     # ════════════════════════════════════════
@@ -706,7 +708,417 @@ streamlit run streamlit_app.py
                 style_dataframe(conf_df, ["Avg S1", "Elite", "High"], []),
                 use_container_width=True, height=500, hide_index=True)
 
-    # ── Methodology & Disclaimer ──
+    # ════════════════════════════════════════
+    #  PLAYERS IN PORTAL TAB
+    # ════════════════════════════════════════
+    with tab_portal:
+        st.markdown("### 🚪 Players in Portal")
+        st.caption("Source: On3 Transfer Portal  •  Upload a fresh CSV to update")
+
+        # ── Load portal_entries.csv ──
+        portal_path = "portal_entries.csv"
+        portal_df   = None
+
+        if os.path.exists(portal_path):
+            try:
+                portal_df = pd.read_csv(portal_path, encoding="utf-8-sig")
+            except Exception as e:
+                st.error(f"Could not load portal_entries.csv: {e}")
+
+        # ── CSV upload to refresh ──
+        with st.expander("📤 Upload fresh portal data (On3 CSV)", expanded=(portal_df is None)):
+            st.markdown("""
+            **How to get fresh data:**
+            1. Go to [on3.com/transfer-portal](https://on3.com/transfer-portal/)
+            2. Scroll all the way down to load all players
+            3. Select all → Copy → Paste into Excel → Save as `Portalers.csv`
+            4. Run `parse_on3_portal.py` locally to generate `portal_entries.csv`
+            5. Upload the result below
+            """)
+            uploaded = st.file_uploader("Upload portal_entries.csv",
+                                         type="csv", key="portal_upload")
+            if uploaded:
+                try:
+                    portal_df = pd.read_csv(uploaded, encoding="utf-8-sig")
+                    st.success(f"✅ Loaded {len(portal_df)} portal entries")
+                except Exception as e:
+                    st.error(f"Upload error: {e}")
+
+        if portal_df is None or len(portal_df) == 0:
+            st.info("No portal data loaded. Upload a portal_entries.csv file above.")
+        else:
+            # ── Merge with CBBD scores ──
+            def norm_name(n):
+                import re
+                n = str(n).lower().strip()
+                n = re.sub(r'\b(jr\.?|sr\.?|ii|iii|iv)\b', '', n)
+                n = re.sub(r'[^a-z ]', '', n)
+                return re.sub(r'\s+', ' ', n).strip()
+
+            score_lookup = {}
+            if df is not None:
+                for _, row in df.iterrows():
+                    score_lookup[norm_name(row['Player'])] = row
+
+            score_cols = ['PTS','Tot','AST','TS%','eFGPct','DEF_comp',
+                          'PER','PortalScore','FinalScore','NILValue',
+                          'Conference','Elig']
+
+            merged_rows = []
+            for _, p in portal_df.iterrows():
+                row_data = p.to_dict()
+                key = norm_name(p.get('Player',''))
+                if key in score_lookup:
+                    sr = score_lookup[key]
+                    for c in score_cols:
+                        if c in sr.index:
+                            row_data[f'__{c}'] = sr[c]
+                merged_rows.append(row_data)
+
+            merged = pd.DataFrame(merged_rows)
+
+            # ── Portal filters ──
+            pcol1, pcol2, pcol3, pcol4 = st.columns(4)
+            with pcol1:
+                status_opts = ["All"] + sorted(
+                    portal_df['Status'].dropna().unique().tolist())
+                p_status = st.selectbox("Status", status_opts,
+                                         key="p_status")
+            with pcol2:
+                pos_opts_p = ["All"] + sorted(
+                    portal_df['Pos'].dropna().unique().tolist())
+                p_pos = st.selectbox("Position", pos_opts_p, key="p_pos")
+            with pcol3:
+                p_search = st.text_input("Search player",
+                                          placeholder="Name...",
+                                          key="p_search")
+            with pcol4:
+                p_sort = st.selectbox("Sort by",
+                    ["On3 Rating", "S1 Score", "S2 Final",
+                     "NIL Est.", "PTS", "Player"],
+                    key="p_sort")
+
+            # Apply filters
+            pf = merged.copy()
+            if p_status != "All":
+                pf = pf[pf['Status'] == p_status]
+            if p_pos != "All":
+                pf = pf[pf['Pos'] == p_pos]
+            if p_search:
+                pf = pf[pf['Player'].str.lower().str.contains(
+                    p_search.lower(), na=False)]
+
+            # Sort
+            sort_col_map = {
+                "On3 Rating": "On3Rating",
+                "S1 Score":   "__PortalScore",
+                "S2 Final":   "__FinalScore",
+                "NIL Est.":   "__NILValue",
+                "PTS":        "__PTS",
+                "Player":     "Player",
+            }
+            sc = sort_col_map.get(p_sort, "On3Rating")
+            if sc in pf.columns:
+                pf = pf.sort_values(sc, ascending=(p_sort=="Player"),
+                                    na_position='last')
+
+            # ── Build display ──
+            disp_cols = {
+                'Player':          'Player',
+                'Pos':             'Pos',
+                'Elig':            'Elig',
+                'Height':          'Height',
+                'On3Rating':       'On3 Rating',
+                'Status':          'Status',
+                'LastTeam':        'Last Team',
+                'NewTeam':         'New Team',
+                '__PTS':           'PTS',
+                '__Tot':           'REB',
+                '__AST':           'AST',
+                '__TS%':           'TS%',
+                '__DEF_comp':      'DEF',
+                '__PER':           'PER',
+                '__PortalScore':   'S1 Score',
+                '__FinalScore':    'S2 Final',
+                '__NILValue':      'NIL Est.',
+            }
+            avail_p = {k:v for k,v in disp_cols.items() if k in pf.columns}
+            p_display = pf[list(avail_p.keys())].copy()
+            p_display = p_display.rename(columns=avail_p)
+            p_display.insert(0, '#', range(1, len(p_display)+1))
+
+            # Format
+            for c in ['PTS','REB','AST','TS%','DEF','PER']:
+                if c in p_display.columns:
+                    p_display[c] = pd.to_numeric(
+                        p_display[c], errors='coerce').round(1)
+            for c in ['S1 Score','S2 Final']:
+                if c in p_display.columns:
+                    p_display[c] = pd.to_numeric(
+                        p_display[c], errors='coerce').round(2)
+            if 'NIL Est.' in p_display.columns:
+                p_display['NIL Est.'] = pd.to_numeric(
+                    p_display['NIL Est.'], errors='coerce').apply(
+                    lambda x: fmt_nil(x) if pd.notna(x) else '—')
+            if 'On3 Rating' in p_display.columns:
+                p_display['On3 Rating'] = pd.to_numeric(
+                    p_display['On3 Rating'], errors='coerce').round(2)
+
+            # Summary
+            pm1, pm2, pm3, pm4 = st.columns(4)
+            pm1.metric("Total in Portal", len(portal_df))
+            pm2.metric("Shown",           len(p_display))
+            pm3.metric("Committed",
+                       len(portal_df[portal_df['Status']=='Committed']))
+            pm4.metric("Avg On3 Rating",
+                       f"{pd.to_numeric(portal_df['On3Rating'], errors='coerce').mean():.1f}")
+
+            shade_p = [c for c in ['On3 Rating','PTS','REB','AST',
+                                    'TS%','PER','S1 Score','S2 Final']
+                       if c in p_display.columns]
+            st.dataframe(
+                style_dataframe(p_display, shade_p, []),
+                use_container_width=True, height=540, hide_index=True)
+
+            st.download_button(
+                "💾 Download Portal List",
+                data=pf.to_csv(index=False),
+                file_name=f"portal_entries_{date.today()}.csv",
+                mime="text/csv")
+
+    # ════════════════════════════════════════
+    #  COMPARE PLAYERS TAB
+    # ════════════════════════════════════════
+    with tab_compare:
+        st.markdown("### ⚖️ Player Comparison Tool")
+        st.caption("Build a custom comparison — search and add any D-I players")
+
+        if df is None or len(df) == 0:
+            st.info("Load data first.")
+        else:
+            # ── Player search and roster builder ──
+            all_players = sorted(df['Player'].dropna().unique().tolist())
+
+            col_search, col_team = st.columns([2, 1])
+            with col_search:
+                compare_search = st.text_input(
+                    "Search for a player to add",
+                    placeholder="Type name...",
+                    key="compare_search")
+            with col_team:
+                base_team = st.selectbox(
+                    "Or load a full team roster",
+                    ["— select —"] + sorted(df['Team'].dropna().unique().tolist()),
+                    key="base_team")
+
+            # Filter search results
+            if compare_search:
+                matches = [p for p in all_players
+                           if compare_search.lower() in p.lower()][:20]
+                if matches:
+                    add_player = st.selectbox(
+                        f"Found {len(matches)} matches — select to add:",
+                        ["— select —"] + matches,
+                        key="add_player_sel")
+                else:
+                    st.caption("No players found.")
+                    add_player = "— select —"
+            else:
+                add_player = "— select —"
+
+            # Session state for comparison roster
+            if 'compare_roster' not in st.session_state:
+                st.session_state.compare_roster = []
+
+            # Add from search
+            if add_player != "— select —":
+                if add_player not in st.session_state.compare_roster:
+                    st.session_state.compare_roster.append(add_player)
+
+            # Load full team roster
+            if base_team != "— select —":
+                team_players = df[df['Team'] == base_team]['Player'].tolist()
+                for p in team_players:
+                    if p not in st.session_state.compare_roster:
+                        st.session_state.compare_roster.append(p)
+
+            # ── Roster management ──
+            if st.session_state.compare_roster:
+                st.markdown(f"**Comparison roster — {len(st.session_state.compare_roster)} players:**")
+
+                # Remove individual players
+                remove_cols = st.columns(min(6, len(st.session_state.compare_roster)))
+                to_remove = []
+                for idx, pname in enumerate(st.session_state.compare_roster):
+                    col = remove_cols[idx % len(remove_cols)]
+                    if col.button(f"✕ {pname[:18]}", key=f"rm_{idx}_{pname}"):
+                        to_remove.append(pname)
+                for p in to_remove:
+                    st.session_state.compare_roster.remove(p)
+
+                c_clear, c_portal = st.columns([1, 2])
+                with c_clear:
+                    if st.button("🗑 Clear all", key="clear_roster"):
+                        st.session_state.compare_roster = []
+                        st.rerun()
+                with c_portal:
+                    # Add all portal players to comparison
+                    if os.path.exists("portal_entries.csv"):
+                        if st.button("➕ Add all portal players",
+                                     key="add_portal"):
+                            try:
+                                pdf = pd.read_csv("portal_entries.csv")
+                                for p in pdf['Player'].tolist():
+                                    if p not in st.session_state.compare_roster:
+                                        st.session_state.compare_roster.append(p)
+                            except Exception:
+                                pass
+
+            # ── Comparison table ──
+            if not st.session_state.compare_roster:
+                st.info("Search for players above or load a team roster to start comparing.")
+            else:
+                comp_df = df[df['Player'].isin(
+                    st.session_state.compare_roster)].copy()
+
+                if len(comp_df) == 0:
+                    st.warning("None of the selected players were found in the scoring data.")
+                else:
+                    # Sort options
+                    comp_sort = st.selectbox("Sort comparison by",
+                        ["S1 Score", "S2 Final", "NIL Est.",
+                         "PER", "PORPAG", "PTS", "REB", "AST"],
+                        key="comp_sort")
+
+                    comp_sort_map = {
+                        "S1 Score":  "PortalScore",
+                        "S2 Final":  "FinalScore",
+                        "NIL Est.":  "NILValue",
+                        "PER":       "PER",
+                        "PORPAG":    "PORPAG",
+                        "PTS":       "PTS",
+                        "REB":       "Tot",
+                        "AST":       "AST",
+                    }
+                    cs = comp_sort_map.get(comp_sort, "PortalScore")
+                    if cs in comp_df.columns:
+                        comp_df = comp_df.sort_values(
+                            cs, ascending=False, na_position='last')
+
+                    # Build display
+                    comp_show_cols = [
+                        ('Player',      'Player'),
+                        ('Team',        'Team'),
+                        ('Conference',  'Conf'),
+                        ('Position',    'Pos'),
+                        ('Elig',        'Elig'),
+                        ('G',           'G'),
+                        ('PTS',         'PTS'),
+                        ('Tot',         'REB'),
+                        ('AST',         'AST'),
+                        ('TS%',         'TS%'),
+                        ('eFGPct',      'eFG%'),
+                        ('USG%',        'USG%'),
+                        ('PER',         'PER'),
+                        ('PORPAG',      'PORPAG'),
+                        ('WS40_cbbd',   'WS/40'),
+                        ('DEF_comp',    'DEF'),
+                        ('PortalScore', 'S1 Score'),
+                        ('FinalScore',  'S2 Final'),
+                        ('NILValue',    'NIL Est.'),
+                    ]
+                    avail_c = [(dc, dn) for dc, dn in comp_show_cols
+                               if dc in comp_df.columns]
+                    c_disp = comp_df[[dc for dc,_ in avail_c]].copy()
+                    c_disp = c_disp.rename(
+                        columns={dc:dn for dc,dn in avail_c})
+
+                    # Format
+                    for c in ['PTS','REB','AST','TS%','eFG%','USG%',
+                              'PER','PORPAG','WS/40','DEF']:
+                        if c in c_disp.columns:
+                            c_disp[c] = pd.to_numeric(
+                                c_disp[c], errors='coerce').round(1)
+                    for c in ['S1 Score','S2 Final']:
+                        if c in c_disp.columns:
+                            c_disp[c] = pd.to_numeric(
+                                c_disp[c], errors='coerce').round(2)
+                    if 'NIL Est.' in c_disp.columns:
+                        c_disp['NIL Est.'] = pd.to_numeric(
+                            c_disp['NIL Est.'], errors='coerce').apply(
+                            lambda x: fmt_nil(x) if pd.notna(x) else '—')
+                    if 'G' in c_disp.columns:
+                        c_disp['G'] = pd.to_numeric(
+                            c_disp['G'], errors='coerce').round(0).astype('Int64')
+
+                    c_disp = c_disp.reset_index(drop=True)
+                    c_disp.insert(0, '#', range(1, len(c_disp)+1))
+
+                    shade_c = [c for c in ['PTS','REB','AST','TS%','eFG%',
+                                            'USG%','PER','PORPAG','WS/40',
+                                            'S1 Score','S2 Final']
+                               if c in c_disp.columns]
+
+                    # Stat summary row
+                    st.markdown(f"**{len(c_disp)} players selected**")
+                    st.dataframe(
+                        style_dataframe(c_disp, shade_c, []),
+                        use_container_width=True,
+                        height=min(600, 45 + len(c_disp) * 35),
+                        hide_index=True)
+
+                    # ── Visual radar/bar comparison ──
+                    if len(c_disp) >= 2:
+                        st.markdown("---")
+                        st.markdown("**📊 Side-by-side stat bars**")
+                        bar_stat = st.selectbox(
+                            "Compare stat",
+                            ['PTS','REB','AST','TS%','PER',
+                             'PORPAG','S1 Score','S2 Final'],
+                            key="bar_stat")
+
+                        if bar_stat in c_disp.columns:
+                            try:
+                                import plotly.express as px
+                                bar_data = c_disp[['Player', bar_stat]].copy()
+                                bar_data[bar_stat] = pd.to_numeric(
+                                    bar_data[bar_stat], errors='coerce')
+                                bar_data = bar_data.dropna().sort_values(
+                                    bar_stat, ascending=True)
+                                fig = px.bar(
+                                    bar_data,
+                                    x=bar_stat, y='Player',
+                                    orientation='h',
+                                    color=bar_stat,
+                                    color_continuous_scale=[
+                                        [0.0, '#da3633'],
+                                        [0.5, '#d29922'],
+                                        [1.0, '#3fb950']],
+                                    title=f"{bar_stat} Comparison",
+                                    template='plotly_dark',
+                                )
+                                fig.update_layout(
+                                    paper_bgcolor='#0d1117',
+                                    plot_bgcolor='#161b22',
+                                    showlegend=False,
+                                    coloraxis_showscale=False,
+                                    height=max(300,
+                                               len(bar_data) * 40 + 80),
+                                    margin=dict(l=160, r=20, t=40, b=20),
+                                    yaxis=dict(tickfont=dict(size=11)),
+                                )
+                                st.plotly_chart(fig,
+                                                use_container_width=True)
+                            except ImportError:
+                                st.caption(
+                                    "Install plotly for bar charts: "
+                                    "`pip install plotly`")
+
+                    st.download_button(
+                        "💾 Download Comparison CSV",
+                        data=comp_df.to_csv(index=False),
+                        file_name=f"comparison_{date.today()}.csv",
+                        mime="text/csv")
     st.divider()
     with st.expander("📖 Methodology & Scoring Guide", expanded=False):
         st.markdown("""
