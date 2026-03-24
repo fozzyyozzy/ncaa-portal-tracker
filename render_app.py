@@ -473,7 +473,7 @@ streamlit run streamlit_app.py
 
     # ── Tabs ──
     tab_lb, tab_team, tab_conf, tab_portal, tab_compare = st.tabs([
-        "🏆 Leaderboard",
+        "👥 All Players",
         "🏫 By Team",
         "🗺 By Conference",
         "🚪 Players in Portal",
@@ -794,7 +794,7 @@ streamlit run streamlit_app.py
                                           key="p_search")
             with pcol4:
                 p_sort = st.selectbox("Sort by",
-                    ["On3 Rating", "S1 Score", "S2 Final",
+                    ["S2 Final", "S1 Score", "On3 Rating",
                      "NIL Est.", "PTS", "Player"],
                     key="p_sort")
 
@@ -810,14 +810,14 @@ streamlit run streamlit_app.py
 
             # Sort
             sort_col_map = {
-                "On3 Rating": "On3Rating",
-                "S1 Score":   "__PortalScore",
                 "S2 Final":   "__FinalScore",
+                "S1 Score":   "__PortalScore",
+                "On3 Rating": "On3Rating",
                 "NIL Est.":   "__NILValue",
                 "PTS":        "__PTS",
                 "Player":     "Player",
             }
-            sc = sort_col_map.get(p_sort, "On3Rating")
+            sc = sort_col_map.get(p_sort, "__FinalScore")
             if sc in pf.columns:
                 pf = pf.sort_values(sc, ascending=(p_sort=="Player"),
                                     na_position='last')
@@ -847,12 +847,24 @@ streamlit run streamlit_app.py
             p_display = p_display.rename(columns=avail_p)
             p_display.insert(0, '#', range(1, len(p_display)+1))
 
-            # Format
+            # ── Format decimals ──
+            fmt_map_p = {}
+            for c in p_display.columns:
+                if c in ('#','Player','Pos','Elig','Height','Status',
+                          'Last Team','New Team','NIL Est.'):
+                    continue
+                elif c == 'On3 Rating':
+                    fmt_map_p[c] = "{:.2f}"
+                elif c in ('S1 Score','S2 Final'):
+                    fmt_map_p[c] = "{:.2f}"
+                else:
+                    fmt_map_p[c] = "{:.1f}"
+
             for c in ['PTS','REB','AST','TS%','DEF','PER']:
                 if c in p_display.columns:
                     p_display[c] = pd.to_numeric(
                         p_display[c], errors='coerce').round(1)
-            for c in ['S1 Score','S2 Final']:
+            for c in ['S1 Score','S2 Final','On3 Rating']:
                 if c in p_display.columns:
                     p_display[c] = pd.to_numeric(
                         p_display[c], errors='coerce').round(2)
@@ -860,9 +872,6 @@ streamlit run streamlit_app.py
                 p_display['NIL Est.'] = pd.to_numeric(
                     p_display['NIL Est.'], errors='coerce').apply(
                     lambda x: fmt_nil(x) if pd.notna(x) else '—')
-            if 'On3 Rating' in p_display.columns:
-                p_display['On3 Rating'] = pd.to_numeric(
-                    p_display['On3 Rating'], errors='coerce').round(2)
 
             # Summary
             pm1, pm2, pm3, pm4 = st.columns(4)
@@ -876,9 +885,10 @@ streamlit run streamlit_app.py
             shade_p = [c for c in ['On3 Rating','PTS','REB','AST',
                                     'TS%','PER','S1 Score','S2 Final']
                        if c in p_display.columns]
-            st.dataframe(
-                style_dataframe(p_display, shade_p, []),
-                use_container_width=True, height=540, hide_index=True)
+            styled_p = style_dataframe(p_display, shade_p, [])
+            styled_p = styled_p.format(fmt_map_p, na_rep="—")
+            st.dataframe(styled_p, use_container_width=True,
+                         height=540, hide_index=True)
 
             st.download_button(
                 "💾 Download Portal List",
@@ -986,7 +996,7 @@ streamlit run streamlit_app.py
                 else:
                     # Sort options
                     comp_sort = st.selectbox("Sort comparison by",
-                        ["S1 Score", "S2 Final", "NIL Est.",
+                        ["S2 Final", "S1 Score", "NIL Est.",
                          "PER", "PORPAG", "PTS", "REB", "AST"],
                         key="comp_sort")
 
@@ -1034,6 +1044,18 @@ streamlit run streamlit_app.py
                         columns={dc:dn for dc,dn in avail_c})
 
                     # Format
+                    fmt_map_c = {}
+                    for c in c_disp.columns:
+                        if c in ('#','Player','Team','Conf','Pos',
+                                  'Elig','NIL Est.'):
+                            continue
+                        elif c == 'G':
+                            fmt_map_c[c] = "{:.0f}"
+                        elif c in ('S1 Score','S2 Final'):
+                            fmt_map_c[c] = "{:.2f}"
+                        else:
+                            fmt_map_c[c] = "{:.1f}"
+
                     for c in ['PTS','REB','AST','TS%','eFG%','USG%',
                               'PER','PORPAG','WS/40','DEF']:
                         if c in c_disp.columns:
@@ -1049,7 +1071,8 @@ streamlit run streamlit_app.py
                             lambda x: fmt_nil(x) if pd.notna(x) else '—')
                     if 'G' in c_disp.columns:
                         c_disp['G'] = pd.to_numeric(
-                            c_disp['G'], errors='coerce').round(0).astype('Int64')
+                            c_disp['G'], errors='coerce'
+                            ).round(0).astype('Int64')
 
                     c_disp = c_disp.reset_index(drop=True)
                     c_disp.insert(0, '#', range(1, len(c_disp)+1))
@@ -1061,11 +1084,12 @@ streamlit run streamlit_app.py
 
                     # Stat summary row
                     st.markdown(f"**{len(c_disp)} players selected**")
-                    st.dataframe(
-                        style_dataframe(c_disp, shade_c, []),
-                        use_container_width=True,
-                        height=min(600, 45 + len(c_disp) * 35),
-                        hide_index=True)
+                    styled_c = style_dataframe(c_disp, shade_c, [])
+                    styled_c = styled_c.format(fmt_map_c, na_rep="—")
+                    st.dataframe(styled_c,
+                                 use_container_width=True,
+                                 height=min(600, 45 + len(c_disp) * 35),
+                                 hide_index=True)
 
                     # ── Visual radar/bar comparison ──
                     if len(c_disp) >= 2:
