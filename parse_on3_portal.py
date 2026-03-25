@@ -236,7 +236,6 @@ def parse_on3_csv(input_path="Portalers.csv",
                 'NewTeam':   new_team,
                 'Hometown':  hometown,
                 'Source':    'On3',
-                'DateAdded': today,
             })
             i = k
 
@@ -249,36 +248,40 @@ def parse_on3_csv(input_path="Portalers.csv",
         print("[WARN] No players parsed — check CSV format")
         return out
 
-    # Clean up rating
-    out['On3Rating'] = pd.to_numeric(out['On3Rating'],
-                                      errors='coerce').round(2)
+    # ── Run through merge/dedup logic (same as scraper) ──
+    try:
+        from scrape_on3 import merge_portal_data
+        out = merge_portal_data(out.to_dict('records'), output_path)
+        return out
+    except ImportError:
+        # scrape_on3.py not present — basic save without dedup
+        out['On3Rating'] = pd.to_numeric(out['On3Rating'],
+                                          errors='coerce').round(2)
+        out['DateEntered'] = today
+        out['LastUpdated'] = today
+        out = out.sort_values(
+            ['On3Rating','Player'], ascending=[False,True],
+            na_position='last').reset_index(drop=True)
+        out.to_csv(output_path, index=False)
 
-    # Sort by rating desc, then name
-    out = out.sort_values(
-        ['On3Rating', 'Player'],
-        ascending=[False, True],
-        na_position='last'
-    ).reset_index(drop=True)
-
-    out.to_csv(output_path, index=False)
-
-    print(f"{'='*58}")
-    print(f"  On3 Portal Parser  |  {today}")
-    print(f"{'='*58}")
-    print(f"  Players parsed:  {len(out)}")
-    print(f"  With ratings:    {out['On3Rating'].notna().sum()}")
-    print(f"  Committed:       {(out['Status']=='Committed').sum()}")
-    print(f"  Expected:        {(out['Status']=='Expected').sum()}")
-    print(f"  Withdrawn:       {(out['Status']=='Withdrawn').sum()}")
-    print(f"  Saved to:        {output_path}")
-    print(f"{'='*58}")
-    print()
-    print("Top 10 by On3 Rating:")
-    top = out[out['On3Rating'].notna()].head(10)
-    for _, r in top.iterrows():
-        print(f"  {r['On3Rating']:5.2f}  {r['Player']:<25} "
-              f"{r['Pos']:3} {r['Elig']:6} "
-              f"{r['LastTeam']:<20} → {r['NewTeam'] or '?'}")
+        print(f"{'='*58}")
+        print(f"  On3 Portal Parser  |  {today}")
+        print(f"{'='*58}")
+        print(f"  Players parsed:  {len(out)}")
+        print(f"  With ratings:    {out['On3Rating'].notna().sum()}")
+        print(f"  Committed:       {(out['Status']=='Committed').sum()}")
+        print(f"  Expected:        {(out['Status']=='Expected').sum()}")
+        print(f"  Withdrawn:       {(out['Status']=='Withdrawn').sum()}")
+        print(f"  Saved to:        {output_path}")
+        print(f"{'='*58}")
+        print()
+        print("Top 10 by On3 Rating:")
+        top = out[out['On3Rating'].notna()].head(10)
+        for _, r in top.iterrows():
+            print(f"  {float(r['On3Rating']):5.2f}  {r['Player']:<25} "
+                  f"{r.get('Pos',''):3} {r.get('Elig',''):6} "
+                  f"{r.get('LastTeam',''):<20} "
+                  f"→ {r.get('NewTeam','') or '?'}")
 
     return out
 

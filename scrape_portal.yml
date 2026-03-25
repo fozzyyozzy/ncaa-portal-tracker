@@ -1,0 +1,60 @@
+name: Scrape On3 Transfer Portal
+
+on:
+  schedule:
+    # 8:00 AM ET (13:00 UTC) and 8:00 PM ET (01:00 UTC next day)
+    - cron: '0 13 * * *'
+    - cron: '0 1  * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # ── 1. Check out the repo ──
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 2. Set up Python ──
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ── 3. Install dependencies ──
+      - name: Install Python packages
+        run: |
+          pip install playwright pandas
+
+      # ── 4. Install Playwright browser ──
+      - name: Install Chromium
+        run: |
+          playwright install chromium
+          playwright install-deps chromium
+
+      # ── 5. Run the scraper ──
+      - name: Run On3 scraper
+        run: |
+          python scrape_on3.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      # ── 6. Commit updated portal_entries.csv ──
+      - name: Commit portal data if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add portal_entries.csv
+          # Only commit if there are actual changes
+          if git diff --staged --quiet; then
+            echo "No changes to portal_entries.csv — skipping commit"
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "Auto-update portal entries — $TIMESTAMP"
+            git push
+          fi
