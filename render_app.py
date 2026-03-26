@@ -954,35 +954,48 @@ streamlit run streamlit_app.py
 
             # ── Roster management ──
             if st.session_state.compare_roster:
-                st.markdown(f"**Comparison roster — {len(st.session_state.compare_roster)} players:**")
+                st.markdown(
+                    f"**{len(st.session_state.compare_roster)} players "
+                    f"in roster:**  "
+                    + "  ".join(
+                        f"`{p}`" for p in st.session_state.compare_roster))
 
-                # Remove individual players
-                remove_cols = st.columns(min(6, len(st.session_state.compare_roster)))
-                to_remove = []
-                for idx, pname in enumerate(st.session_state.compare_roster):
-                    col = remove_cols[idx % len(remove_cols)]
-                    if col.button(f"✕ {pname[:18]}", key=f"rm_{idx}_{pname}"):
-                        to_remove.append(pname)
-                for p in to_remove:
-                    st.session_state.compare_roster.remove(p)
+                # ── Removal controls ──
+                rem_col1, rem_col2 = st.columns([3, 1])
+                with rem_col1:
+                    remove_sel = st.multiselect(
+                        "Select players to remove",
+                        options=st.session_state.compare_roster,
+                        default=[],
+                        key="remove_sel",
+                        label_visibility="collapsed",
+                        placeholder="Select players to remove...")
+                with rem_col2:
+                    bcol1, bcol2 = st.columns(2)
+                    with bcol1:
+                        if st.button("🗑 Remove", key="do_remove",
+                                     disabled=not remove_sel):
+                            for p in remove_sel:
+                                if p in st.session_state.compare_roster:
+                                    st.session_state.compare_roster.remove(p)
+                            st.rerun()
+                    with bcol2:
+                        if st.button("✕ Clear all", key="clear_roster"):
+                            st.session_state.compare_roster = []
+                            st.rerun()
 
-                c_clear, c_portal = st.columns([1, 2])
-                with c_clear:
-                    if st.button("🗑 Clear all", key="clear_roster"):
-                        st.session_state.compare_roster = []
-                        st.rerun()
-                with c_portal:
-                    # Add all portal players to comparison
-                    if os.path.exists("portal_entries.csv"):
-                        if st.button("➕ Add all portal players",
-                                     key="add_portal"):
-                            try:
-                                pdf = pd.read_csv("portal_entries.csv")
-                                for p in pdf['Player'].tolist():
-                                    if p not in st.session_state.compare_roster:
-                                        st.session_state.compare_roster.append(p)
-                            except Exception:
-                                pass
+                # Add all portal players button
+                if os.path.exists("portal_entries.csv"):
+                    if st.button("➕ Add all portal players",
+                                 key="add_portal"):
+                        try:
+                            pdf = pd.read_csv("portal_entries.csv")
+                            for p in pdf['Player'].tolist():
+                                if p not in st.session_state.compare_roster:
+                                    st.session_state.compare_roster.append(p)
+                            st.rerun()
+                        except Exception:
+                            pass
 
             # ── Comparison table ──
             if not st.session_state.compare_roster:
