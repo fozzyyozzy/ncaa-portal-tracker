@@ -81,7 +81,7 @@ def parse_height(raw):
 
 POSITIONS = {'PG','SG','SF','PF','C','G','F','CG','WG','G/F','combo'}
 ELIGS      = {'FR','SO','JR','SR','GR','RS-SO','RS-FR','RS-JR','RS-SR','5th'}
-STATUSES   = {'Expected','Committed','Withdrawn','Graduate'}
+STATUSES   = {'Expected','Committed','Withdrawn','Graduate','Entered'}
 
 def is_pos(v):
     return str(v).strip() in POSITIONS
@@ -106,6 +106,10 @@ def is_rating(v):
     except Exception:
         return False
 
+def is_nil_value(v):
+    """Skip On3 NIL value strings like $1.9M, $500K"""
+    return bool(re.match(r'^\$[\d\.]+[KMBkm]?$', str(v).strip()))
+
 def is_height(v):
     return bool(parse_height(v))
 
@@ -116,10 +120,12 @@ def is_skip(v):
     v = str(v).strip()
     return (is_avatar(v)
             or v.startswith('Update:')
-            or re.match(r'^\d+/\d+/\d+$', v)
+            or re.match(r'^\d+/\d+/\d+$', v)       # dates like 3/6/2026
+            or re.match(r'^\d+/\d+$', v)             # dates like 3/6
+            or is_nil_value(v)                        # NIL values like $1.9M
             or len(v) > 80
             or v in ('Last Team', 'New Team', 'Status', 'Player',
-                     'Pos', 'Rating', 'NIL Value'))
+                     'Pos', 'Rating', 'NIL Value', 'NIL'))
 
 
 # ──────────────────────────────────────────────
@@ -177,8 +183,13 @@ def parse_on3_csv(input_path="Portalers.csv",
                       'last','new']}
 
             k = j + 1
-            while k < len(values) and k - j < 25:
+            while k < len(values) and k - j < 35:
                 vk = values[k].strip()
+
+                # CRITICAL: stop if we hit the next player's position marker
+                # This prevents scan window from consuming the next player
+                if vk in POSITIONS and k > j + 3:
+                    break
 
                 if is_avatar(vk):
                     team = (vk.replace(' Avatar', '')

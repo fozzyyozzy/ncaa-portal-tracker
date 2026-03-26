@@ -385,6 +385,14 @@ def merge_portal_data(new_players, output_path=OUTPUT_FILE):
         existing = pd.concat([existing, new_df],
                               ignore_index=True)
 
+    # Final dedup safety net — keep highest rating per player name
+    if len(existing) > 0:
+        existing['_rating_num'] = pd.to_numeric(
+            existing['On3Rating'], errors='coerce').fillna(0)
+        existing = existing.sort_values('_rating_num', ascending=False)
+        existing = existing.drop_duplicates(subset='Player', keep='first')
+        existing = existing.drop(columns=['_rating_num'])
+
     # Sort by On3Rating desc
     if 'On3Rating' in existing.columns:
         existing['On3Rating'] = pd.to_numeric(

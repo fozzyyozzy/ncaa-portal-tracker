@@ -1,112 +1,137 @@
 Player,Pos,Elig,Height,Weight,On3Rating,Status,LastTeam,NewTeam,Hometown,Source,DateAdded,DateEntered,LastUpdated,UniqueKey
 Paulius Murauskas,PF,JR,6-8,220,96.98,Expected,,,Kaunas,On3,,2026-03-25,2026-03-25 18:52,paulius murauskas
 Stefan Vaaks,SG,FR,7-6,206,96.63,Expected,,,Tabasalu,On3,2026-03-24,2026-03-25,2026-03-25,stefan vaaks
-Jackson Shelstad,PG,JR,6-0,170,96.23,Expected,,,"West Linn, OR",On3,2026-03-24,2026-03-25,2026-03-25 18:52,jackson shelstad
-Kwame Evans Jr.,PF,JR,6-10,200,95.82,Expected,,,"Baltimore, MD",On3,2026-03-24,2026-03-25,2026-03-25 18:52,kwame evans
-KJ Lewis,SG,JR,6-4,185,95.44,Expected,,,"El Paso, TX",On3,2026-03-24,2026-03-25,2026-03-25 18:52,kj lewis
+Jackson Shelstad,PG,JR,6-0,170,96.23,Expected,,,"West Linn, OR",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jackson shelstad
+Kwame Evans Jr.,PF,JR,6-10,200,95.82,Expected,,,"Baltimore, MD",On3,2026-03-24,2026-03-25,2026-03-26 20:42,kwame evans
+KJ Lewis,SG,JR,6-4,185,95.44,Expected,,,"El Paso, TX",On3,2026-03-24,2026-03-25,2026-03-26 20:42,kj lewis
 Ben Defty,C,SO,7-0,255,94.64,Expected,,,Berlin,On3,2026-03-24,2026-03-25,2026-03-25,ben defty
 Dillon Claussen,PF,SO,6-8,215,94.62,Expected,,,"Omaha, NE",On3,2026-03-24,2026-03-25,2026-03-25,dillon claussen
+DeSean Goode,PF,SO,6-8,230,94.31,Expected,,,"Fork Union, VA",On3,,2026-03-26,2026-03-26 20:42,desean goode
 Colby Garland,SG,JR,6-0,190,93.91,Expected,,,"Maumelle, AR",On3,2026-03-24,2026-03-25,2026-03-25,colby garland
-Anton Bonke,C,JR,7-2,270,93.88,Expected,,,"Thatcher, AZ",On3,2026-03-24,2026-03-25,2026-03-25 18:52,anton bonke
+Anton Bonke,C,JR,7-2,270,93.88,Expected,,,"Thatcher, AZ",On3,2026-03-24,2026-03-25,2026-03-26 20:42,anton bonke
 Quadir Martin,PF,SO,5-6,215,93.84,Expected,,,"Staten Island, NY",On3,2026-03-24,2026-03-25,2026-03-25,quadir martin
-Christian Bliss,CG,RS-SO,6-4,205,93.81,Expected,,,"Brooklyn, NY",On3,2026-03-24,2026-03-25,2026-03-25 18:52,christian bliss
+Christian Bliss,CG,RS-SO,6-4,205,93.81,Expected,,,"Brooklyn, NY",On3,2026-03-24,2026-03-25,2026-03-26 20:42,christian bliss
+Sir Mohammed,SG,SO,6-6,200,93.53,Expected,,,"Lexington, KY",On3,,2026-03-26,2026-03-26 20:42,sir mohammed
 Chol Machot,C,SO,7-0,200,93.5,Expected,College of Charleston,,"Winston Salem, NC",On3,2026-03-24,2026-03-25,2026-03-25,chol machot
 Elijah Moore,SG,SO,6-3,170,93.17,Expected,,,"Bronx, NY",On3,2026-03-24,2026-03-25,2026-03-25,elijah moore
-Jack Karasinski,SF,SR,7-6,205,93.08,Expected,Bellarmine,USF,"Williamsburg, VA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,jack karasinski
+Jack Karasinski,SF,SR,7-6,205,93.08,Entered,Bellarmine,USF,"Williamsburg, VA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jack karasinski
 Chance Gladden,CG,FR,6-3,175,93.06,Expected,,,"Raleigh, NC",On3,2026-03-24,2026-03-25,2026-03-25,chance gladden
-Tyler Lundblade,SG,RS-SR,5-6,195,93.05,Expected,Belmont University,,"Greensboro, NC",On3,2026-03-24,2026-03-25,2026-03-25,tyler lundblade
+Tyler Lundblade,SG,RS-SR,5-6,195,93.05,Entered,Belmont University,,"Greensboro, NC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,tyler lundblade
 Ryan Blount,SF,SO,6-6,205,93.04,Expected,,,"Oviedo, FL",On3,2026-03-24,2026-03-25,2026-03-25,ryan blount
-Samson Aletan,C,JR,6-9,200,93.02,Expected,Yale,,"Lincoln, NE",On3,2026-03-24,2026-03-25,2026-03-25,samson aletan
-Luke McEldon,C,JR,6-10,230,93.01,Expected,,,"Ashburnham, MA",On3,,2026-03-25,2026-03-25 18:52,luke mceldon
-Bube Momah,PF,SR,6-8,240,92.91,Expected,Lehigh,,"Greenville, SC",On3,2026-03-24,2026-03-25,2026-03-25,bube momah
-Jake Fiegen,SG,JR,6-4,205,92.27,Expected,Cornell,,"Wilmette, IL",On3,2026-03-24,2026-03-25,2026-03-25,jake fiegen
+Samson Aletan,C,JR,6-9,200,93.02,Entered,Yale,,"Lincoln, NE",On3,2026-03-24,2026-03-25,2026-03-26 20:42,samson aletan
+Greyson Uelmen,SG,RS-FR,6-2,185,93.01,Expected,,,"Excelsior, MN",On3,,2026-03-26,2026-03-26 20:42,greyson uelmen
+Luke McEldon,C,JR,6-10,230,93.01,Expected,,,"Ashburnham, MA",On3,,2026-03-25,2026-03-26 20:42,luke mceldon
+Jordan Butler,PF,JR,7-0,240,92.91,Expected,,,"Greenville, SC",On3,,2026-03-26,2026-03-26 20:42,jordan butler
+Bube Momah,PF,SR,6-8,240,92.91,Entered,Lehigh,,"Greenville, SC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,bube momah
+Jake Fiegen,SG,JR,6-4,205,92.27,Entered,Cornell,,"Wilmette, IL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jake fiegen
+Andrija Bukumirovic,SF,JR,7-6,200,92.16,Expected,,,,On3,,2026-03-26,2026-03-26 20:42,andrija bukumirovic
 Max Frazier,PF,JR,6-9,200,92.16,Expected,,,"Pittsboro, NC",On3,2026-03-24,2026-03-25,2026-03-25,max frazier
 Adam Olsen,PF,JR,6-8,225,92.15,Expected,,,"Surrey, BC",On3,2026-03-24,2026-03-25,2026-03-25 18:52,adam olsen
-Eemeli Yalaho,PF,JR,6-8,230,92.13,Expected,,,"Hudson, OH",On3,2026-03-24,2026-03-25,2026-03-25 18:52,eemeli yalaho
-Kaden Cooper,SG,JR,5-6,180,92.06,Expected,,,"Ada, OK",On3,2026-03-24,2026-03-25,2026-03-25 18:52,kaden cooper
+Eemeli Yalaho,PF,JR,6-8,230,92.13,Expected,,,"Hudson, OH",On3,2026-03-24,2026-03-25,2026-03-26 20:42,eemeli yalaho
+Kaden Cooper,SG,JR,5-6,180,92.06,Expected,,,"Ada, OK",On3,2026-03-24,2026-03-25,2026-03-26 20:42,kaden cooper
 A'lahn Sumler,PG,SR,6-3,185,91.86,Expected,,,"Waterbury, CT",On3,2026-03-24,2026-03-25,2026-03-25,alahn sumler
+Torey Alston,PF,RS-SO,6-9,220,91.86,Expected,,,"Winston Salem, NC",On3,,2026-03-26,2026-03-26 20:42,torey alston
 Corey Hadnot,SG,JR,6-3,190,91.8,Expected,,,"Houston, TX",On3,2026-03-24,2026-03-25,2026-03-25,corey hadnot
-Eli Ellis,SG,FR,6-1,190,91.72,Expected,,,"Hickory, NC",On3,2026-03-24,2026-03-25,2026-03-25 18:52,eli ellis
-AJ LaBeau,PF,RS-SO,7-0,215,91.43,Expected,Cornell,,"Miami, FL",On3,2026-03-24,2026-03-25,2026-03-25,aj labeau
-Ethan Roberts,SF,RS-JR,5-6,195,91.24,Expected,Pennsylvania,Youngstown State,"Phoenix, AZ",On3,2026-03-24,2026-03-25,2026-03-25 18:52,ethan roberts
+Eli Ellis,SG,FR,6-1,190,91.72,Expected,,,"Hickory, NC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,eli ellis
+AJ LaBeau,PF,RS-SO,7-0,215,91.43,Entered,Cornell,,"Miami, FL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,aj labeau
+Mister Dean,SG,SO,6-6,210,91.43,Expected,,,"Miami, FL",On3,,2026-03-26,2026-03-26 20:42,mister dean
+Ja'Quay Randolph,C,JR,6-10,240,91.38,Entered,,,"Tallahassee, FL",On3,,2026-03-26,2026-03-26 20:42,jaquay randolph
+Lazerek Houston,PG,FR,6-0,155,91.36,Expected,,,"Lincoln, NE",On3,,2026-03-26,2026-03-26 20:42,lazerek houston
+Evan Ramsey,C,RS-SO,7-0,250,91.3,Entered,,,"Abingdon, VA",On3,,2026-03-26,2026-03-26 20:42,evan ramsey
+Cade Bennerman,C,FR,6-11,195,91.27,Expected,,,"Nashville, TN",On3,,2026-03-26,2026-03-26 20:42,cade bennerman
+Ethan Roberts,SF,RS-JR,5-6,195,91.24,Entered,Pennsylvania,Youngstown State,"Phoenix, AZ",On3,2026-03-24,2026-03-25,2026-03-26 20:42,ethan roberts
+Okechukwu Okeke,PF,SR,6-9,235,91.23,Entered,Albany,Cal State Monterey Bay,"Palo Alto, CA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,okechukwu okeke
 Anthony Robinson,PF,JR,6-10,230,91.23,Expected,,,"Peachtree City, GA",On3,2026-03-24,2026-03-25,2026-03-25,anthony robinson
-Bernie Blunt III,PG,SR,5-11,180,91.23,Expected,Mercyhurst College,,"Morgantown, PA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,bernie blunt
-Okechukwu Okeke,PF,SR,6-9,235,91.23,Expected,Albany,Cal State Monterey Bay,"Palo Alto, CA",On3,2026-03-24,2026-03-25,2026-03-25,okechukwu okeke
+Bernie Blunt III,PG,SR,5-11,180,91.23,Entered,Mercyhurst College,,"Morgantown, PA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,bernie blunt
 Jack McCaffery,PF,FR,6-8,200,91.23,Expected,,,"Iowa City, IA",On3,2026-03-24,2026-03-25,2026-03-25,jack mccaffery
 Ross Candelino,SG,SR,5-6,185,91.22,Expected,,,"Jacksonville, FL",On3,2026-03-24,2026-03-25,2026-03-25,ross candelino
-JoJo Wallace,SG,SO,6-3,180,91.21,Expected,Southern New Hampshire,Virginia Wise,"Abingdon, VA",On3,2026-03-24,2026-03-25,2026-03-25,jojo wallace
 Jacoi Hutchinson,PG,JR,6-2,180,91.21,Expected,,,"Silver Spring, MD",On3,,2026-03-25,2026-03-25 18:52,jacoi hutchinson
+JoJo Wallace,SG,SO,6-3,180,91.21,Entered,Southern New Hampshire,Virginia Wise,"Abingdon, VA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jojo wallace
+Brady Swartz,SG,FR,7-6,195,91.21,Expected,,,"Grand Rapids, MI",On3,,2026-03-26,2026-03-26 20:42,brady swartz
 Cayden Ward,SG,SO,6-6,210,91.2,Expected,,,"Stockton, CA",On3,2026-03-24,2026-03-25,2026-03-25,cayden ward
-Garrett Sundra,PF,SO,6-10,215,91.2,Expected,,,"Fairfax, VA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,garrett sundra
+Garrett Sundra,PF,SO,6-10,215,91.2,Expected,,,"Fairfax, VA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,garrett sundra
 Devin Dinkins,PG,SR,5-10,155,91.19,Expected,,,"Washington, DC",On3,,2026-03-25,2026-03-25 18:52,devin dinkins
-Koree Cotton,SG,JR,6-6,245,91.18,Expected,University of Rio Grande,,"Miami, FL",On3,2026-03-24,2026-03-25,2026-03-25 18:52,koree cotton
+Koree Cotton,SG,JR,6-6,245,91.18,Entered,University of Rio Grande,,"Miami, FL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,koree cotton
+Sean Logan,PF,SR,6-10,215,91.18,Entered,,,"Westfield, NJ",On3,,2026-03-26,2026-03-26 20:42,sean logan
+Cord Stansberry,CG,RS-JR,6-3,195,91.18,Entered,,,"Indio, CA",On3,,2026-03-26,2026-03-26 20:42,cord stansberry
+Braedon Speed,PG,SO,6-2,190,91.17,Expected,,,"Phoenix, AZ",On3,,2026-03-26,2026-03-26 20:42,braedon speed
+Marcus Kell,SF,SR,6-8,213,91.16,Entered,,,"Rock Hill, SC",On3,,2026-03-26,2026-03-26 20:42,marcus kell
 Jamarion Davis-Fleming,PF,FR,6-8,200,91.14,Expected,,,"Canton, MS",On3,,2026-03-25,2026-03-25 18:52,jamarion davisfleming
-Damari Wheeler-Thomas,PG,RS-JR,6-0,185,91.12,Expected,North Dakota State,,"Winston Salem, NC",On3,2026-03-24,2026-03-25,2026-03-25 18:52,damari wheelerthomas
+Damari Wheeler-Thomas,PG,RS-JR,6-0,185,91.12,Entered,North Dakota State,,"Winston Salem, NC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,damari wheelerthomas
 RJ Jones,SG,JR,6-3,175,91.1,Expected,,,"Denton, TX",On3,,2026-03-25,2026-03-25 18:52,rj jones
 Dellquan Warren,PG,SO,6-1,160,90.74,Expected,,,"Geneva, OH",On3,,2026-03-25,2026-03-25 18:52,dellquan warren
-Caden Pierce,PF,SR,6-6,205,90.65,Committed,,,"Glen Ellen, CA",On3,2026-03-24,2026-03-25,2026-03-25,caden pierce
+Caden Pierce,PF,SR,6-6,205,90.65,Entered,,,"Glen Ellen, CA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,caden pierce
 Darin Smith Jr.,SF,RS-SO,7-6,210,90.62,Expected,,,"Springfield, MA",On3,2026-03-24,2026-03-25,2026-03-25,darin smith
+Rob Dockery,SF,RS-SO,7-6,195,90.61,Expected,,,"Washington, DC",On3,,2026-03-26,2026-03-26 20:42,rob dockery
 Deuce Jones,PG,SO,6-0,185,90.59,Expected,Saint Joseph's University,,"Trenton, NJ",On3,2026-03-24,2026-03-25,2026-03-25,deuce jones
-Alex Atkinson,PF,SO,6-10,180,90.41,Expected,Claflin,,"Phoenix, AZ",On3,2026-03-24,2026-03-25,2026-03-25,alex atkinson
-Jay Rodgers,PG,RS-SR,6-3,185,90.4,Expected,Central Connecticut State,,"Grand Rapids, MI",On3,2026-03-24,2026-03-25,2026-03-25,jay rodgers
+Alex Atkinson,PF,SO,6-10,180,90.41,Entered,Claflin,,"Phoenix, AZ",On3,2026-03-24,2026-03-25,2026-03-26 20:42,alex atkinson
+Jay Rodgers,PG,RS-SR,6-3,185,90.4,Entered,Central Connecticut State,,"Grand Rapids, MI",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jay rodgers
 Trey Simmons,SG,SO,6-1,175,90.4,Expected,Frostburg State,,"Gaithersburg, MD",On3,2026-03-24,2026-03-25,2026-03-25,trey simmons
 Marcus Adams Jr.,SF,SR,6-8,200,90.39,Expected,,,"Harbor City, CA",On3,2026-03-24,2026-03-25,2026-03-25,marcus adams
-Ruot Bijiek,SF,SR,6-8,185,90.38,Expected,Bucknell,,"West Des Moines, IA",On3,2026-03-24,2026-03-25,2026-03-25,ruot bijiek
+Ruot Bijiek,SF,SR,6-8,185,90.38,Entered,Bucknell,,"West Des Moines, IA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,ruot bijiek
 Jaxon Edwards,SG,SR,6-6,195,90.38,Expected,,,"Indianapolis, IN",On3,2026-03-24,2026-03-25,2026-03-25,jaxon edwards
-Christian Moore,SF,RS-SO,6-6,225,90.36,Expected,The Citadel,The Citadel,"Mount Pleasant, SC",On3,2026-03-24,2026-03-25,2026-03-25,christian moore
+Christian Moore,SF,RS-SO,6-6,225,90.36,Entered,The Citadel,The Citadel,"Mount Pleasant, SC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,christian moore
+Cavan Reilly,SG,SR,6-4,200,90.35,Entered,,,"Lovettsville, VA",On3,,2026-03-26,2026-03-26 20:42,cavan reilly
 Pedro Santos,SG,RS-FR,7-6,200,90.34,Expected,,,,On3,2026-03-24,2026-03-25,2026-03-25,pedro santos
+Xavier Brown,SG,SR,6-2,183,90.34,Entered,,,"Williamsburg, VA",On3,,2026-03-26,2026-03-26 20:42,xavier brown
 Melian Martinez,C,SO,6-9,230,90.33,Expected,,,"Cerritos, CA",On3,2026-03-24,2026-03-25,2026-03-25,melian martinez
 Ari Fulton,SG,SO,6-6,200,90.33,Expected,,,"Fayetteville, NC",On3,2026-03-24,2026-03-25,2026-03-25 18:52,ari fulton
+Mike Mora,SG,RS-SO,6-6,210,90.33,Entered,,,"Palo Alto, CA",On3,,2026-03-26,2026-03-26 20:42,mike mora
 Robert Davis,SG,JR,6-6,175,90.32,Expected,,,"Detroit, MI",On3,,2026-03-25,2026-03-25 18:52,robert davis
 Izaiah Pasha,PG,SO,6-4,180,90.31,Expected,,,"Springfield, PA",On3,,2026-03-25,2026-03-25 18:52,izaiah pasha
 Jaxon Olvera,SG,SO,5-6,190,90.31,Expected,,,"Houston, TX",On3,2026-03-24,2026-03-25,2026-03-25,jaxon olvera
-Noah Feddersen,C,RS-JR,6-10,245,90.29,Expected,North Dakota State,,"Excelsior, MN",On3,2026-03-24,2026-03-25,2026-03-25 18:52,noah feddersen
-Max Majerle,SG,SR,6-4,200,90.29,Expected,North Dakota State,The Citadel,"Alpharetta, GA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,max majerle
+Sola Adebisi,SF,SR,7-6,205,90.29,Entered,,,"Alpharetta, GA",On3,,2026-03-26,2026-03-26 20:42,sola adebisi
+Noah Feddersen,C,RS-JR,6-10,245,90.29,Entered,North Dakota State,,"Excelsior, MN",On3,2026-03-24,2026-03-25,2026-03-26 20:42,noah feddersen
+Max Majerle,SG,SR,6-4,200,90.29,Entered,North Dakota State,The Citadel,"Alpharetta, GA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,max majerle
 Cornelius Robinson,SF,JR,5-6,210,90.28,Expected,,,"Camden, NJ",On3,,2026-03-25,2026-03-25 18:52,cornelius robinson
-Malek Gomma,PF,JR,6-8,245,90.27,Expected,Weber State,Delaware,"Lovettsville, VA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,malek gomma
-Jevon Hill,PF,SR,6-9,190,90.26,Expected,,,"Wichita, KS",On3,2026-03-24,2026-03-25,2026-03-25 18:52,jevon hill
-Cal Klesmit,SG,RS-SO,6-2,180,90.24,Expected,,,"Neenah, WI",On3,2026-03-24,2026-03-25,2026-03-25 18:52,cal klesmit
+Malek Gomma,PF,JR,6-8,245,90.27,Entered,Weber State,Delaware,"Lovettsville, VA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,malek gomma
+Jevon Hill,PF,SR,6-9,190,90.26,Expected,,,"Wichita, KS",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jevon hill
+Cal Klesmit,SG,RS-SO,6-2,180,90.24,Expected,,,"Neenah, WI",On3,2026-03-24,2026-03-25,2026-03-26 20:42,cal klesmit
 Elijah Strong,PF,JR,6-8,245,90.23,Expected,,,"Charlotte, NC",On3,2026-03-24,2026-03-25,2026-03-25,elijah strong
-Jack Payne,SG,SR,6-6,195,90.22,Expected,Idaho,,"Fork Union, VA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,jack payne
-Antonio Pusateri,PF,JR,7-6,200,90.21,Expected,,,"San Francisco, CA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,antonio pusateri
+Jack Payne,SG,SR,6-6,195,90.22,Entered,Idaho,,"Fork Union, VA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jack payne
+Antonio Pusateri,PF,JR,7-6,200,90.21,Expected,,,"San Francisco, CA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,antonio pusateri
 Jamie Kaiser,SF,JR,6-6,210,90.14,Expected,,,"Burke, VA",On3,2026-03-24,2026-03-25,2026-03-25,jamie kaiser
 Daquan Davis,PG,SO,6-1,173,89.77,Expected,,,"Baltimore, MD",On3,2026-03-24,2026-03-25,2026-03-25,daquan davis
-Jaylen Washington,PG,SO,5-9,155,89.55,Expected,The University of Texas Rio Grande Valley,,"Ashburnham, MA",On3,2026-03-24,2026-03-25,2026-03-25,jaylen washington
-Joe Hurlburt,C,RS-JR,6-10,220,89.55,Expected,Davidson,Davidson,"Westfield, NJ",On3,2026-03-24,2026-03-25,2026-03-25,joe hurlburt
+Joe Hurlburt,C,RS-JR,6-10,220,89.55,Entered,Davidson,Davidson,"Westfield, NJ",On3,2026-03-24,2026-03-25,2026-03-26 20:42,joe hurlburt
 Alfred Worrell,SG,SR,6-4,200,89.54,Expected,,,"Silver Spring, MD",On3,2026-03-24,2026-03-25,2026-03-25,alfred worrell
 Camp Wagner,SG,JR,6-6,190,89.54,Expected,,,"Dallas, TX",On3,2026-03-24,2026-03-25,2026-03-25,camp wagner
-Hunter Adam,SG,RS-JR,7-6,225,89.53,Expected,Davidson,Embry Riddle,"Oviedo, FL",On3,2026-03-24,2026-03-25,2026-03-25,hunter adam
+Hunter Adam,SG,RS-JR,7-6,225,89.53,Entered,Davidson,Embry Riddle,"Oviedo, FL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,hunter adam
 Nas Hart,PF,FR,6-8,180,89.53,Expected,,,"Edison, NJ",On3,2026-03-24,2026-03-25,2026-03-25,nas hart
 Dani Pounds,PF,JR,7-6,225,89.52,Expected,,,"Forest Park, GA",On3,2026-03-24,2026-03-25,2026-03-25,dani pounds
 Elijah Elliott,CG,SO,6-2,170,89.52,Expected,,,"Orlando, FL",On3,2026-03-24,2026-03-25,2026-03-25,elijah elliott
+Zine Eddrine Bedri,C,SR,6-10,235,89.51,Expected,,,Tebessa,On3,,2026-03-26,2026-03-26 20:42,zine eddrine bedri
+Jaylen Washington,PG,SO,5-9,155,89.45,Entered,The University of Texas Rio Grande Valley,,"Ashburnham, MA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jaylen washington
 Jeremiah Johnson,SG,SO,6-3,170,89.41,Expected,,,"Oklahoma City, OK",On3,2026-03-24,2026-03-25,2026-03-25,jeremiah johnson
 Reid Cason,PF,SO,6-10,235,89.41,Expected,,,"Kingston, OK",On3,,2026-03-25,2026-03-25 18:52,reid cason
 Ridvan Tutic,C,SR,6-10,242,88.76,Expected,,,Novi Pazar,On3,2026-03-24,2026-03-25,2026-03-25,ridvan tutic
 Mike Evbagharu,SG,JR,6-4,220,88.75,Expected,,,,On3,2026-03-24,2026-03-25,2026-03-25,mike evbagharu
-Josh Baldwin,SG,RS-JR,5-6,230,88.74,Expected,Cornell,,"Washington, DC",On3,2026-03-24,2026-03-25,2026-03-25,josh baldwin
+Andrew Ball,SG,RS-SO,6-9,215,88.74,Entered,,,"Medford, NJ",On3,,2026-03-26,2026-03-26 20:42,andrew ball
+Josh Baldwin,SG,RS-JR,5-6,230,88.74,Entered,Cornell,,"Washington, DC",On3,2026-03-24,2026-03-25,2026-03-26 20:42,josh baldwin
 Avery Brown,PG,SR,6-3,180,88.73,Expected,,,"Beacon Falls, CT",On3,2026-03-24,2026-03-25,2026-03-25,avery brown
 Joah Chappelle,SF,SO,6-9,185,88.73,Expected,,,"Atlanta, GA",On3,2026-03-24,2026-03-25,2026-03-25,joah chappelle
-Jack Robison,SG,SO,6-6,175,88.62,Expected,,,"Lakeville, MN",On3,2026-03-24,2026-03-25,2026-03-25 18:52,jack robison
+Jack Robison,SG,SO,6-6,175,88.62,Expected,,,"Lakeville, MN",On3,2026-03-24,2026-03-25,2026-03-26 20:42,jack robison
 Reid Ducharme,SG,JR,6-6,180,88.61,Expected,,,"Boston, MA",On3,,2026-03-25,2026-03-25 18:52,reid ducharme
 Jahki Howard,SF,SO,6-6,180,88.13,Expected,,,"Boston, MA",On3,2026-03-24,2026-03-25,2026-03-25,jahki howard
-JC Riley,C,RS-JR,6-10,250,87.97,Expected,,,"Atlanta, GA",On3,2026-03-24,2026-03-25,2026-03-25,jc riley
 Preston Copeland,PF,FR,7-6,185,87.97,Expected,,,"Raleigh, NC",On3,2026-03-24,2026-03-25,2026-03-25,preston copeland
+JC Riley,C,RS-JR,6-10,250,87.97,Expected,,,"Atlanta, GA",On3,2026-03-24,2026-03-25,2026-03-25,jc riley
+Always Wright,CG,RS-JR,6-3,175,87.96,Expected,,,"Joplin, MO",On3,,2026-03-26,2026-03-26 20:42,always wright
 Omar Adegbola,SG,RS-SO,6-4,205,87.96,Expected,,,"Houston, TX",On3,2026-03-24,2026-03-25,2026-03-25,omar adegbola
 Chase Cormier,CG,SR,6-2,165,87.95,Expected,,,"Decatur, GA",On3,2026-03-24,2026-03-25,2026-03-25,chase cormier
 Tyler Wagner,SG,FR,5-6,175,87.95,Expected,,,"Minneapolis, MN",On3,2026-03-24,2026-03-25,2026-03-25,tyler wagner
 Cameron Tweedy,SF,SR,6-6,220,87.84,Expected,,,"Waldorf, MD",On3,,2026-03-25,2026-03-25 18:52,cameron tweedy
+Justyn Fernandez,SG,RS-JR,5-6,200,87.37,Expected,,,"Richmond, VA",On3,,2026-03-26,2026-03-26 20:42,justyn fernandez
 EJ Walker,PF,FR,6-8,220,86.5,Expected,,,"Erlanger, KY",On3,2026-03-24,2026-03-25,2026-03-25,ej walker
 Deshawn Gory,SF,FR,7-6,170,85.25,Expected,,,"Victorville, CA",On3,2026-03-24,2026-03-25,2026-03-25,deshawn gory
 Isaiah Manning,PF,RS-SO,7-6,200,85.05,Expected,,,"Mansfield, TX",On3,2026-03-24,2026-03-25,2026-03-25,isaiah manning
-Hansel Enmanuel,CG,SR,6-4,175,83.0,Expected,Austin Peay,Princeton,"Glen Ellen, CA",On3,2026-03-24,2026-03-25,2026-03-25 18:52,hansel enmanuel
+Hansel Enmanuel,CG,SR,6-4,175,83.0,Entered,Austin Peay,Princeton,"Glen Ellen, CA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,hansel enmanuel
 Aidan McDowell,SG,SO,6-4,193,,Expected,,,"Crete, NE",On3,2026-03-24,2026-03-25,2026-03-25,aidan mcdowell
-Alexander Lesburt Jr.,SG,JR,5-6,197,,Expected,Brown,Wagner,"Salisbury, MD",On3,2026-03-24,2026-03-25,2026-03-25,alexander lesburt
+Alexander Lesburt Jr.,SG,JR,5-6,197,,Entered,Brown,Wagner,"Salisbury, MD",On3,2026-03-24,2026-03-25,2026-03-26 20:42,alexander lesburt
 All Wright,CG,SO,6-3,180,,Expected,,,"Joplin, MO",On3,2026-03-24,2026-03-25,2026-03-25,all wright
 Anthony Smith III,PG,FR,6-1,170,,Expected,,,"Hopkins, MN",On3,2026-03-24,2026-03-25,2026-03-25,anthony smith
 Antonio Munoz,SF,FR,6-6,185,,Expected,,,"Chicago, IL",On3,2026-03-24,2026-03-25,2026-03-25,antonio munoz
 BJ Omot,SF,SR,6-6,180,,Expected,,,"Mankato, MN",On3,2026-03-24,2026-03-25,2026-03-25,bj omot
 Brigham Rogers,PF,JR,6-9,205,,Expected,,,"Roswell, GA",On3,2026-03-24,2026-03-25,2026-03-25,brigham rogers
-Christian Hughes,PG,RS-SO,6-2,180,,Expected,Arkansas Little Rock,,"Williamsport, PA",On3,2026-03-24,2026-03-25,2026-03-25,christian hughes
+Christian Hughes,PG,RS-SO,6-2,180,,Entered,Arkansas Little Rock,,"Williamsport, PA",On3,2026-03-24,2026-03-25,2026-03-26 20:42,christian hughes
 Demari Williams,SG,SR,6-6,210,,Expected,,,"Glendale, AZ",On3,2026-03-24,2026-03-25,2026-03-25,demari williams
 Dionjahe Thomas,PF,RS-JR,6-8,236,,Expected,,,"Houma, LA",On3,2026-03-24,2026-03-25,2026-03-25,dionjahe thomas
 Drew Scharnowski,PF,RS-SO,6-8,195,,Expected,,,"Camp Point, IL",On3,2026-03-24,2026-03-25,2026-03-25,drew scharnowski
@@ -122,15 +147,29 @@ Kyle Marshall,SG,SO,6-4,165,,Expected,Air Force,,"Oyster Bay, NY",On3,2026-03-24
 Logan Carey,SG,JR,6-3,185,,Expected,,,"Shelton, CT",On3,2026-03-24,2026-03-25,2026-03-25,logan carey
 Matas Deniusas,PF,FR,6-9,220,,Expected,,,,On3,2026-03-24,2026-03-25,2026-03-25,matas deniusas
 Nazar Mahmoud,SG,JR,5-6,185,,Expected,,,"Leander, TX",On3,2026-03-24,2026-03-25,2026-03-25,nazar mahmoud
-Orlando Horton,PG,JR,5-8,150,,Expected,Prairie View A&M,,"Auburndale, FL",On3,2026-03-24,2026-03-25,2026-03-25,orlando horton
-Quin Berger,PG,RS-JR,6-1,200,,Expected,Bucknell,Illinois Chicago,"West Palm Beach, FL",On3,2026-03-24,2026-03-25,2026-03-25,quin berger
+Orlando Horton,PG,JR,5-8,150,,Entered,Prairie View A&M,,"Auburndale, FL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,orlando horton
+Quin Berger,PG,RS-JR,6-1,200,,Entered,Bucknell,Illinois Chicago,"West Palm Beach, FL",On3,2026-03-24,2026-03-25,2026-03-26 20:42,quin berger
 Roddie Anderson III,PG,SR,6-2,190,,Expected,,,"Huntington Beach, CA",On3,2026-03-24,2026-03-25,2026-03-25,roddie anderson
-Tameron Ferguson,CG,SO,6-2,170,,Committed,,,"Saint Cloud, MN",On3,2026-03-24,2026-03-25,2026-03-25,tameron ferguson
+Tameron Ferguson,CG,SO,6-2,170,,Entered,,,"Saint Cloud, MN",On3,2026-03-24,2026-03-25,2026-03-26 20:42,tameron ferguson
 Uzziah Buntyn,PG,FR,6-1,170,,Expected,,,"Round Rock, TX",On3,2026-03-24,2026-03-25,2026-03-25,uzziah buntyn
 Xavier Spencer,CG,JR,6-1,210,,Expected,,,"Calgary, AB",On3,2026-03-24,2026-03-25,2026-03-25,xavier spencer
-Conrad Luczynski,C,JR,7-2,270,,Expected,Lenoir Rhyne,Loyola Marymount,"Stamford, CT",On3,,2026-03-25,2026-03-25 18:52,conrad luczynski
+Conrad Luczynski,C,JR,7-2,270,,Entered,Lenoir Rhyne,Loyola Marymount,"Stamford, CT",On3,,2026-03-25,2026-03-26 20:42,conrad luczynski
 Jaden Winston,SG,JR,6-0,160,,Expected,,,"Hyattsville, MD",On3,,2026-03-25,2026-03-25 18:52,jaden winston
 Jalen Brown,SG,JR,6-2,155,,Expected,Cal State Dominguez Hills,,"Modesto, CA",On3,,2026-03-25,2026-03-25 18:52,jalen brown
 Alessandro Perotti,PF,FR,6-10,245,,Expected,,,,On3,,2026-03-25,2026-03-25 18:52,alessandro perotti
 Fazl Oshodi,CG,SO,6-3,183,,Expected,,,"Wynnewood, PA",On3,,2026-03-25,2026-03-25 18:52,fazl oshodi
 Jamil Muttilib,SG,JR,6-6,190,,Expected,,,"Kilgore, TX",On3,,2026-03-25,2026-03-25 18:52,jamil muttilib
+Drew King,PG,SR,6-2,175,,Entered,,,"Phoenix, AZ",On3,,2026-03-26,2026-03-26 20:42,drew king
+Nehemiah Turner,PF,SO,6-10,265,,Expected,,,"Auburndale, FL",On3,,2026-03-26,2026-03-26 20:42,nehemiah turner
+Rowan Irelan,SG,RS-SO,6-3,195,,Entered,,,"Mount Pleasant, SC",On3,,2026-03-26,2026-03-26 20:42,rowan irelan
+Dawson Barr,SG,JR,6-4,195,,Entered,,,"Oviedo, FL",On3,,2026-03-26,2026-03-26 20:42,dawson barr
+KJ Swain,PG,RS-JR,6-1,165,,Entered,,,"Fairfield, OH",On3,,2026-03-26,2026-03-26 20:42,kj swain
+Jace Whiting,SG,RS-JR,6-1,185,,Entered,,,"Burley, ID",On3,,2026-03-26,2026-03-26 20:42,jace whiting
+Eric Dibami,PF,FR,6-10,240,,Expected,,,Yaounde,On3,,2026-03-26,2026-03-26 20:42,eric dibami
+Nils Machowski,SG,JR,6-3,185,,Expected,,,,On3,,2026-03-26,2026-03-26 20:42,nils machowski
+Jaden Baker,CG,SR,6-2,190,,Entered,,,"Salisbury, MD",On3,,2026-03-26,2026-03-26 20:42,jaden baker
+Joseph Thomas,SG,RS-FR,6-3,165,,Entered,,,"Portal, GA",On3,,2026-03-26,2026-03-26 20:42,joseph thomas
+Davion Hill,SG,RS-SO,6-2,225,,Expected,,,"Williamsport, PA",On3,,2026-03-26,2026-03-26 20:42,davion hill
+Chris Walker,SG,SR,6-6,195,,Entered,,,"West Palm Beach, FL",On3,,2026-03-26,2026-03-26 20:42,chris walker
+Tanner Thomas,SG,RS-SR,6-6,215,,Entered,,,"Stamford, CT",On3,,2026-03-26,2026-03-26 20:42,tanner thomas
+Ryan Prather,SG,SR,5-6,205,,Expected,,,"Clarksburg, MD",On3,,2026-03-26,2026-03-26 20:42,ryan prather
