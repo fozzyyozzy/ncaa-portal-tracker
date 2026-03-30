@@ -37,13 +37,28 @@ MONTH_TO_NUM = {
     'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
 }
 
+# Excel datetime month number → feet (May=5ft, Jun=6ft, Jul=7ft)
+MONTH_TO_FEET = {5: 5, 6: 6, 7: 7}
+
 def parse_height(raw):
     """
-    Handle Excel's auto date conversion of heights.
-    6-5 → stored as "Jun-05" or "5-Jun" depending on locale.
-    Returns clean "feet-inches" string or empty string.
+    Handle all Excel height mangling formats:
+    - Full datetime: '2026-06-04 00:00:00' → 6-4
+    - Short month-num: 'Jun-04' → 6-4
+    - Num-month: '4-Jun' → 6-4
+    - Plain: '6-4' → 6-4
+    - Inverted: '8-6' → 6-8
     """
     raw = str(raw).strip()
+
+    # Excel full datetime: '2026-06-04 00:00:00' → month=feet, day=inches
+    m = re.match(r'^\d{4}-(\d{2})-(\d{2})', raw)
+    if m:
+        month  = int(m.group(1))
+        inches = int(m.group(2))
+        if month in MONTH_TO_FEET and 0 <= inches <= 11:
+            return f"{MONTH_TO_FEET[month]}-{inches}"
+        return ""
 
     # "Jun-00" style (month = feet)
     m = re.match(r'^([A-Za-z]+)-(\d+)$', raw)
@@ -59,9 +74,9 @@ def parse_height(raw):
     if m:
         a = int(m.group(1))
         b = MONTH_TO_NUM.get(m.group(2), 0)
-        if a <= 4:    return f"{b}-{a}"   # 4-Jun → 6-4
-        if a <= 7:    return f"{a}-{b}"   # 5-Jun → 5-6
-        if a >= 8:    return f"{b}-{a}"   # 11-Jun → 6-11
+        if a <= 4:    return f"{b}-{a}"
+        if a <= 7:    return f"{a}-{b}"
+        if a >= 8:    return f"{b}-{a}"
         return ""
 
     # Plain "6-4" or inverted "8-6"
@@ -118,11 +133,15 @@ def is_avatar(v):
 
 def is_skip(v):
     v = str(v).strip()
+    # Don't skip Excel datetime heights (2026-06-04...) — those go to parse_height
+    if re.match(r'^\d{4}-\d{2}-\d{2}', v) and parse_height(v):
+        return False
     return (is_avatar(v)
             or v.startswith('Update:')
-            or re.match(r'^\d+/\d+/\d+$', v)       # dates like 3/6/2026
-            or re.match(r'^\d+/\d+$', v)             # dates like 3/6
-            or is_nil_value(v)                        # NIL values like $1.9M
+            or re.match(r'^\d+/\d+/\d+$', v)         # dates like 3/6/2026
+            or re.match(r'^\d+/\d+$', v)              # dates like 3/6
+            or is_nil_value(v)                         # NIL values like $1.9M
+            or v == '-'                                # On3 empty placeholder
             or len(v) > 80
             or v in ('Last Team', 'New Team', 'Status', 'Player',
                      'Pos', 'Rating', 'NIL Value', 'NIL'))
@@ -142,8 +161,15 @@ def parse_on3_csv(input_path="Portalers.csv",
         print(f"[ERROR] File not found: {input_path}")
         return pd.DataFrame()
 
-    raw = pd.read_csv(input_path, encoding="utf-8-sig", header=None)
-    values = raw.iloc[:, 0].fillna("").astype(str).tolist()
+    try:
+        if input_path.lower().endswith('.xlsx'):
+            raw = pd.read_excel(input_path, header=None)
+        else:
+            raw = pd.read_csv(input_path, encoding="utf-8-sig", header=None)
+        values = raw.iloc[:, 0].fillna("").astype(str).tolist()
+    except Exception as e:
+        print(f"[ERROR] Could not read file: {e}")
+        return pd.DataFrame()
 
     players = []
     i = 0
