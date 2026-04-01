@@ -235,6 +235,13 @@ def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
         except Exception:
             return ""
 
+    # pandas >=2.1 renamed applymap → map
+    def _apply(styler, func, subset):
+        try:
+            return styler.map(func, subset=subset)
+        except AttributeError:
+            return styler.applymap(func, subset=subset)
+
     for col in shade_cols_high:
         if col not in df_num.columns:
             continue
@@ -245,9 +252,9 @@ def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
         hi = float(series.quantile(0.95))
         if lo == hi:
             continue
-        styler = styler.applymap(
+        styler = _apply(styler,
             lambda v, lo=lo, hi=hi: _cell_colour(v, lo, hi, invert=False),
-            subset=[col])
+            [col])
 
     for col in shade_cols_low:
         if col not in df_num.columns:
@@ -259,9 +266,9 @@ def style_dataframe(df_display, shade_cols_high=None, shade_cols_low=None):
         hi = float(series.quantile(0.95))
         if lo == hi:
             continue
-        styler = styler.applymap(
+        styler = _apply(styler,
             lambda v, lo=lo, hi=hi: _cell_colour(v, lo, hi, invert=True),
-            subset=[col])
+            [col])
 
     return styler
 
