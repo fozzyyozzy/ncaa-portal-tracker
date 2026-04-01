@@ -102,16 +102,33 @@ def get_api_key():
 #  DATA LOADING  (cached — only hits API once per day)
 # ──────────────────────────────────────────────
 
-@st.cache_data(ttl=86400, show_spinner="Fetching player data from CBBD API...")
-def load_player_data(api_key, season=2026, cache_version=3):
-    """Load and score all players. Cached for 24 hours.
-    Bump cache_version to force a fresh pull on next load."""
+@st.cache_data(show_spinner="Loading player data...")
+def load_player_data_parquet():
+    """
+    Primary loader — reads from pre-built player_scores.parquet.
+    Instant load, no API call needed.
+    """
+    parquet_path = "player_scores.parquet"
+    if os.path.exists(parquet_path):
+        try:
+            df = pd.read_parquet(parquet_path)
+            return df, None
+        except Exception as e:
+            return None, f"Could not read parquet: {e}"
+    return None, "player_scores.parquet not found"
+
+
+@st.cache_data(ttl=86400, show_spinner="Fetching from CBBD API (fallback)...")
+def load_player_data_api(api_key, season=2026, cache_version=3):
+    """
+    Fallback loader — hits CBBD API if parquet not present.
+    Only used when player_scores.parquet doesn't exist.
+    """
     try:
         from portal_tracker_cbbd import load_data, apply_filters, compute_composite
         import portal_tracker_cbbd as pt
         pt.CBBD_API_KEY = api_key
         pt.SEASON       = season
-
         df_raw = load_data(api_key=api_key, use_cache=False)
         df     = apply_filters(df_raw, exclude_gr=True)
         df     = compute_composite(df)
@@ -268,32 +285,38 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    # ── API Key ──
-    api_key = get_api_key()
-    if not api_key:
-        st.error("⚠️ No CBBD API key found. Set CBBD_API_KEY in Streamlit Secrets or as an environment variable.")
-        with st.expander("How to set your API key"):
-            st.code("""
-# For local development — create .streamlit/secrets.toml:
-CBBD_API_KEY = "your_key_here"
+    # ── Load player data (parquet first, API fallback) ──
+    df, err = load_player_data_parquet()
 
-# Or set environment variable:
-export CBBD_API_KEY="your_key_here"
-streamlit run streamlit_app.py
+    if df is None:
+        # Parquet not found — fall back to API
+        api_key = get_api_key()
+        if not api_key:
+            st.error("⚠️ player_scores.parquet not found and no API key set.")
+            st.info("""
+**To fix this, run this once in your Jupyter notebook:**
+```python
+import portal_tracker_cbbd as pt
+pt.CBBD_API_KEY = "your_key_here"
+df_raw = pt.load_data(use_cache=False)
+df = pt.apply_filters(df_raw)
+df = pt.compute_composite(df)
+df.to_parquet("player_scores.parquet", index=False)
+print(f"Saved {len(df)} players")
+```
+Then commit `player_scores.parquet` to GitHub.
             """)
-        return
-
-    # ── Load data ──
-    df, err = load_player_data(api_key, cache_version=3)
-    if err:
-        st.error(f"Data load error: {err}")
-        if st.button("Retry"):
-            st.cache_data.clear()
-            st.rerun()
-        return
+            return
+        df, err = load_player_data_api(api_key, cache_version=3)
+        if err:
+            st.error(f"API load error: {err}")
+            if st.button("Retry"):
+                st.cache_data.clear()
+                st.rerun()
+            return
 
     if df is None or len(df) == 0:
-        st.warning("No data returned from API.")
+        st.warning("No player data available.")
         return
 
     # ── Sidebar filters ──
