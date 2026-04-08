@@ -30,11 +30,11 @@ Sam Walters,PF,JR,6-9,180,94.32,Expected,,,"The Villages, FL",On3,2026-04-04,202
 Devin Vanterpool,SG,JR,6-3,175,94.25,Expected,,,"Middle Village, NY",On3,2026-04-04,2026-04-04 14:36,devin vanterpool
 Cole Cloer,SF,FR,,190,94.13,Expected,,,"Hillsborough, NC",On3,2026-04-04,2026-04-04 14:36,cole cloer
 Leroy Blyden Jr.,PG,FR,6-1,165,93.94,Expected,,,"Detroit, MI",On3,2026-04-04,2026-04-04 14:36,leroy blyden
-Devin Royal,PF,JR,7-6,210,93.92,Expected,,,"Pickerington, OH",On3,2026-04-04,2026-04-04 14:36,devin royal
 Tyrone Riley,SF,SO,5-6,190,93.92,Expected,,,"Downey, CA",On3,2026-04-04,2026-04-04 14:36,tyrone riley
+Devin Royal,PF,JR,7-6,210,93.92,Expected,,,"Pickerington, OH",On3,2026-04-04,2026-04-04 14:36,devin royal
 Logan Duncomb,C,SR,6-9,235,93.81,Expected,,,"Cincinnati, OH",On3,2026-04-04,2026-04-04 14:36,logan duncomb
-Anton Bonke,C,JR,7-2,270,93.56,Entered,,,"Thatcher, AZ",On3,2026-04-04,2026-04-04 14:36,anton bonke
 Jaland Lowe,PG,JR,6-1,160,93.56,Expected,,,"Missouri City, TX",On3,2026-04-04,2026-04-04 14:36,jaland lowe
+Anton Bonke,C,JR,7-2,270,93.56,Entered,,,"Thatcher, AZ",On3,2026-04-04,2026-04-04 14:36,anton bonke
 Keanu Dawes,PF,JR,6-8,205,93.55,Expected,,,"Houston, TX",On3,2026-04-04,2026-04-04 14:36,keanu dawes
 Sebastian Rancik,PF,SO,6-9,210,93.48,Expected,,,"San Juan Capistrano, CA",On3,2026-04-04,2026-04-04 14:36,sebastian rancik
 Drew Fielder,C,JR,6-9,205,93.45,Expected,,,"Meridian, ID",On3,2026-04-04,2026-04-04 14:36,drew fielder
@@ -42,8 +42,8 @@ Isiah Harwell,SG,FR,5-6,190,93.43,Expected,,,"Pocatello, ID",On3,2026-04-04,2026
 Ty-Laur Johnson,PG,JR,6-0,160,93.28,Expected,,,"Newark, NJ",On3,2026-04-04,2026-04-04 14:36,tylaur johnson
 Peyton Marshall,C,SO,7-0,336,93.26,Expected,,,"Marietta, GA",On3,2026-04-04,2026-04-04 14:36,peyton marshall
 Austin Nunez,PG,SR,6-2,170,93.13,Expected,,,"San Antonio, TX",On3,2026-04-04,2026-04-04 14:36,austin nunez
-Dra Gibbs-Lawhorn,PG,JR,6-1,165,93.05,Expected,,,"Lafayette, IN",On3,2026-04-04,2026-04-04 14:36,dra gibbslawhorn
 Thomas Dowd,SF,JR,6-8,205,93.05,Expected,,,"Dothan, AL",On3,2026-04-04,2026-04-04 14:36,thomas dowd
+Dra Gibbs-Lawhorn,PG,JR,6-1,165,93.05,Expected,,,"Lafayette, IN",On3,2026-04-04,2026-04-04 14:36,dra gibbslawhorn
 Kory Mincy,PG,JR,6-2,180,93.04,Expected,,,"East Point, GA",On3,2026-04-04,2026-04-04 14:36,kory mincy
 Anthony Robinson II,PG,JR,,185,93.04,Expected,,,"Tallahassee, FL",On3,2026-04-04,2026-04-04 14:36,anthony robinson
 Wes Enis,PG,JR,6-2,200,93.03,Expected,,,"Conover, OH",On3,2026-04-04,2026-04-04 14:36,wes enis
@@ -76,8 +76,8 @@ Jalen Cox,CG,JR,6-3,180,91.81,Expected,,,"Los Angeles, CA",On3,2026-04-04,2026-0
 Dior Johnson,PG,RS-JR,6-2,180,91.77,Expected,,,"Corona, CA",On3,2026-04-04,2026-04-04 14:36,dior johnson
 Blake Barkley,PF,JR,6-8,195,91.74,Expected,,,"Putnam, CT",On3,2026-04-04,2026-04-04 14:36,blake barkley
 Lewis Walker,PF,SO,5-6,200,91.7,Expected,,,"Winston Salem, NC",On3,2026-04-04,2026-04-04 14:36,lewis walker
-Sebastian Mack,SG,JR,6-3,,91.67,Expected,Missouri,,"Chicago, IL",On3,2026-04-04,2026-04-04 14:36,sebastian mack
 Efeosa Oliogu-Elabor,SF,FR,6-6,220,91.67,Expected,,,"Markham, ON",On3,2026-04-04,2026-04-04 14:36,efeosa olioguelabor
+Sebastian Mack,SG,JR,6-3,,91.67,Expected,Missouri,,"Chicago, IL",On3,2026-04-04,2026-04-04 14:36,sebastian mack
 Colin Smith,PF,SR,6-8,200,91.64,Expected,,,"Dallas, TX",On3,2026-04-04,2026-04-04 14:36,colin smith
 Ryan Sabol,SG,JR,6-3,195,91.63,Expected,,,"Washington, DC",On3,2026-04-04,2026-04-04 14:36,ryan sabol
 Braeden Lue,PF,SO,6-8,235,91.62,Expected,,,"Douglasville, GA",On3,2026-04-04,2026-04-04 14:36,braeden lue
@@ -137,114 +137,114 @@ Cian Medley,PG,JR,6-0,155,83.25,Expected,,,"Camden, NJ",On3,2026-04-04,2026-04-0
 Cedric Lath,C,RS-JR,6-10,235,83.25,Expected,,,"Henderson, NV",On3,2026-04-04,2026-04-04 14:36,cedric lath
 Trey Autry,SG,JR,6-3,180,83,Expected,,,"Hudson, OH",On3,2026-04-04,2026-04-04 14:36,trey autry
 Evan Haywood,SG,SO,6-4,180,82.75,Expected,,,"Indianapolis, IN",On3,2026-04-04,2026-04-04 14:36,evan haywood
-Jaiun Simon,SF,RS-SO,6-6,190,82.25,Expected,,,"Mableton, GA",On3,2026-04-04,2026-04-04 14:36,jaiun simon
 Sadiku Ayo,SF,SR,6-6,210,82.25,Entered,,,"Bronx, NY",On3,2026-04-04,2026-04-04 14:36,sadiku ayo
+Jaiun Simon,SF,RS-SO,6-6,190,82.25,Expected,,,"Mableton, GA",On3,2026-04-04,2026-04-04 14:36,jaiun simon
 Bryson McGlothin,SF,SO,7-6,180,81.25,Expected,,,"Plano, TX",On3,2026-04-04,2026-04-04 14:36,bryson mcglothin
-Johan Munch,PF,SO,6-11,200,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,johan munch
-Shaheed Solebo,SG,RS-FR,6-4,205,,Expected,,,"Chicago, IL",On3,2026-04-04,2026-04-04 14:36,shaheed solebo
-Brent Bland,SG,RS-SR,6-3,205,,Expected,,,"Huntington Station, NY",On3,2026-04-04,2026-04-04 14:36,brent bland
-Dallas Washington,PF,FR,6-8,195,,Expected,,,"Rancho Santa Margarita, CA",On3,2026-04-04,2026-04-04 14:36,dallas washington
-Aaron Powell,PG,SO,6-1,,,Expected,Rice,,"Valley Village, CA",On3,2026-04-04,2026-04-04 14:36,aaron powell
-Mikkel Tyne,CG,JR,5-10,,,Expected,Richmond,,"Cumberland, MD",On3,2026-04-04,2026-04-04 14:36,mikkel tyne
-Elijah Duval,PG,FR,6-2,175,,Expected,,,"Stuart, FL",On3,2026-04-04,2026-04-04 14:36,elijah duval
-Jayden Fort,PF,SO,6-8,,,Expected,Georgetown,,"Washington, DC",On3,2026-04-04,2026-04-04 14:36,jayden fort
-Quel'Ron House,CG,SO,6-0,180,,Expected,,,"Louisville, KY",On3,2026-04-04,2026-04-04 14:36,quelron house
-Travelle Bryson,SF,SO,5-6,185,,Expected,,,"Anderson, SC",On3,2026-04-04,2026-04-04 14:36,travelle bryson
-Cooper Campbell,CG,SO,6-2,195,,Expected,,,"Phoenix, AZ",On3,2026-04-04,2026-04-04 14:36,cooper campbell
-Ramone Seals,SF,SO,5-6,190,,Expected,,,"Tampa, FL",On3,2026-04-04,2026-04-04 14:36,ramone seals
+Francis Folefac,PF,FR,7-6,245,,Expected,,,"Lanham, MD",On3,2026-04-04,2026-04-04 14:36,francis folefac
+Marlon Barnes Jr.,SF,JR,6-6,180,,Expected,,,"Cleveland, OH",On3,2026-04-04,2026-04-04 14:36,marlon barnes
+Michael Eley,SG,SR,6-4,188,,Entered,,,"Fort Wayne, IN",On3,2026-04-04,2026-04-04 14:36,michael eley
+Adante Holiman,PG,SR,5-9,160,,Expected,,,"Mcalester, OK",On3,2026-04-04,2026-04-04 14:36,adante holiman
+Tyler Boston,PG,SO,6-0,185,,Expected,,,"Potomac, MD",On3,2026-04-04,2026-04-04 14:36,tyler boston
+Carlsheon Young,CG,FR,6-4,,,Expected,Pacific,,"Oklahoma City, OK",On3,2026-04-04,2026-04-04 14:36,carlsheon young
+Kareem Thomas,SG,SO,5-6,,,Expected,Dartmouth,,"Wilmington, DE",On3,2026-04-04,2026-04-04 14:36,kareem thomas
+Jerquarius Stanback,SF,RS-FR,6-9,210,,Expected,,,"Asheboro, NC",On3,2026-04-04,2026-04-04 14:36,jerquarius stanback
+Will Underwood,PG,JR,6-3,,,Expected,Wake Forest,,"Minneapolis, MN",On3,2026-04-04,2026-04-04 14:36,will underwood
+Filip Radakovic,SG,FR,7-6,,,Expected,UT Martin,,,On3,2026-04-04,2026-04-04 14:36,filip radakovic
+Noah Boyde,PF,SR,7-0,230,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,noah boyde
+Owen Bronston Jr.,SG,JR,,205,,Expected,,,"Fairfield, OH",On3,2026-04-04,2026-04-04 14:36,owen bronston
+Larry Hughes II,SG,SR,6-4,185,,Expected,,,"Saint Louis, MO",On3,2026-04-04,2026-04-04 14:36,larry hughes
+Luke Wilson,C,RS-SO,6-9,260,,Expected,,,"Augusta, GA",On3,2026-04-04,2026-04-04 14:36,luke wilson
+Shahid Muhammad,C,SR,6-10,205,,Expected,,,"Queens Village, NY",On3,2026-04-04,2026-04-04 14:36,shahid muhammad
+Daniel Guetta,CG,FR,,180,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,daniel guetta
+Roman Siulepa,PF,FR,6-6,220,,Expected,,,"Brisbane, QLD",On3,2026-04-04,2026-04-04 14:36,roman siulepa
+Naas Cunningham,SF,SO,7-6,180,,Expected,,,"West Orange, NJ",On3,2026-04-04,2026-04-04 14:36,naas cunningham
+Brandon Benjamin,PF,FR,6-8,235,,Expected,,,"Newark, NJ",On3,2026-04-04,2026-04-04 14:36,brandon benjamin
+Tylik Weeks,PF,JR,7-6,,,Expected,Southern Miss,,"Brooklyn, NY",On3,2026-04-04,2026-04-04 14:36,tylik weeks
+Michael Cooper,CG,FR,6-3,185,,Expected,,,"Jeffersonville, IN",On3,2026-04-04,2026-04-04 14:36,michael cooper
+Shelton Williams-Dryden,SF,SR,6-6,220,,Expected,,,"Milwaukee, WI",On3,2026-04-04,2026-04-04 14:36,shelton williamsdryden
+Zaon Collins,PG,JR,6-1,165,,Expected,,,"Las Vegas, NV",On3,2026-04-04,2026-04-04 14:36,zaon collins
+Gabe Warren,SF,JR,6-6,195,,Expected,,,"Plano, TX",On3,2026-04-04,2026-04-04 14:36,gabe warren
+Amar Kuljuhovic,PF,SR,6-8,225,,Entered,,,"Waterloo, IA",On3,2026-04-04,2026-04-04 14:36,amar kuljuhovic
+Hudson Mayes,SG,FR,,200,,Expected,,,"Redondo Beach, CA",On3,2026-04-04,2026-04-04 14:36,hudson mayes
+KJ Thomas,PG,SO,6-1,175,,Expected,,,"Canyon, TX",On3,2026-04-04,2026-04-04 14:36,kj thomas
+Joshua Wyche,SF,JR,7-6,215,,Entered,,,"Philadelphia, PA",On3,2026-04-04,2026-04-04 14:36,joshua wyche
+Victor Valdes,SF,JR,7-6,235,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,victor valdes
+Luke Almodovar,SG,JR,6-3,190,,Expected,,,"Noblesville, IN",On3,2026-04-04,2026-04-04 14:36,luke almodovar
+Rolyns Aligbe,PF,SO,6-9,240,,Expected,,,"Minneapolis, MN",On3,2026-04-04,2026-04-04 14:36,rolyns aligbe
+Kjay Bradley Jr.,PG,SR,6-1,185,,Expected,,,"Los Angeles, CA",On3,2026-04-04,2026-04-04 14:36,kjay bradley
+Riccardo Greppi,PF,SO,6-10,200,,Expected,,,"Rome, Rome",On3,2026-04-04,2026-04-04 14:36,riccardo greppi
+Miles Webb,PF,SR,6-8,190,,Expected,,,"Alexandria, VA",On3,2026-04-04,2026-04-04 14:36,miles webb
+Eddie Ricks III,SF,JR,7-6,185,,Expected,,,"Clarksville, TN",On3,2026-04-04,2026-04-04 14:36,eddie ricks
+Frankquon Sherman,SF,JR,6-6,195,,Expected,,,"Grovetown, GA",On3,2026-04-04,2026-04-04 14:36,frankquon sherman
+Henri Adiassa,C,RS-JR,6-11,240,,Entered,,,"Santa Monica, CA",On3,2026-04-04,2026-04-04 14:36,henri adiassa
+TJ Johnson,SF,RS-JR,6-6,195,,Expected,,,"Temple, TX",On3,2026-04-04,2026-04-04 14:36,tj johnson
+Justin Neely,SF,SR,5-6,200,,Expected,,,"Orlando, FL",On3,2026-04-04,2026-04-04 14:36,justin neely
+Max Burton,PF,SR,6-9,230,,Entered,,,"Williamston, MI",On3,2026-04-04,2026-04-04 14:36,max burton
+Sebastian Robinson,SG,JR,6-3,,,Expected,New Jersey Institute of Technology,,"Montclair, NJ",On3,2026-04-04,2026-04-04 14:36,sebastian robinson
+Aleks Szymczyk,PF,SR,6-10,240,,Entered,,,,On3,2026-04-04,2026-04-04 14:36,aleks szymczyk
+Franck Emmou,SG,JR,5-6,190,,Expected,,,"Mansfield, TX",On3,2026-04-04,2026-04-04 14:36,franck emmou
+Noah Norgaard,CG,FR,6-2,195,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,noah norgaard
+Tijan Saine Jr.,PG,RS-JR,5-10,175,,Expected,,,"Everett, WA",On3,2026-04-04,2026-04-04 14:36,tijan saine
+Kalu Anya,PF,SR,6-8,215,,Expected,,,"Worcester, MA",On3,2026-04-04,2026-04-04 14:36,kalu anya
+Josiah Davis,PG,SR,6-1,190,,Expected,,,"Scott Depot, WV",On3,2026-04-04,2026-04-04 14:36,josiah davis
+K'Jei Parker,CG,JR,6-2,185,,Expected,,,"Winter Haven, FL",On3,2026-04-04,2026-04-04 14:36,kjei parker
+Nyle Ralph-Beyer,SG,SO,6-4,175,,Expected,,,"West Chester, PA",On3,2026-04-04,2026-04-04 14:36,nyle ralphbeyer
+Javan Buchanan,SF,SR,7-6,230,,Entered,,,"Lafayette, IN",On3,2026-04-04,2026-04-04 14:36,javan buchanan
+Augustinas Kiudulas,PF,JR,6-8,215,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,augustinas kiudulas
+Cameron Patterson,SG,RS-FR,6-4,175,,Expected,,,"Humble, TX",On3,2026-04-04,2026-04-04 14:36,cameron patterson
+Dontae Horne,SG,SR,6-4,190,,Expected,,,"Memphis, TN",On3,2026-04-04,2026-04-04 14:36,dontae horne
+Javoy Thompson,SF,JR,5-6,195,,Expected,,,"Bronx, NY",On3,2026-04-04,2026-04-04 14:36,javoy thompson
+Brody Robinson,PG,SR,5-11,160,,Expected,,,"Houston, TX",On3,2026-04-04,2026-04-04 14:36,brody robinson
 Jaeden Mustaf,CG,SO,5-6,205,,Expected,,,"Bowie, MD",On3,2026-04-04,2026-04-04 14:36,jaeden mustaf
-Garrett Johnson,SF,RS-JR,6-8,220,,Expected,,,"Alexandria, VA",On3,2026-04-04,2026-04-04 14:36,garrett johnson
-Mekhi Conner,PG,SO,6-1,,,Expected,Sacred Heart,,"New Haven, CT",On3,2026-04-04,2026-04-04 14:36,mekhi conner
-Mark Lavrenov,PF,FR,6-8,220,,Expected,,,"Rocklin, CA",On3,2026-04-04,2026-04-04 14:36,mark lavrenov
-Yuto Yamanouchi-Williams,PF,RS-JR,6-9,205,,Expected,,,"Los Angeles, CA",On3,2026-04-04,2026-04-04 14:36,yuto yamanouchiwilliams
-AJ Lopez,CG,RS-SR,5-6,170,,Expected,,,"Queens Village, NY",On3,2026-04-04,2026-04-04 14:36,aj lopez
-Anouar Mellouk,PF,RS-SR,6-8,,,Expected,Morehead State,,,On3,2026-04-04,2026-04-04 14:36,anouar mellouk
-Kaleb Smith,PF,JR,,200,,Expected,,,"Rancho Cucamonga, CA",On3,2026-04-04,2026-04-04 14:36,kaleb smith
-Daniel Tobiloba,C,JR,6-11,230,,Expected,,,"Des Moines, IA",On3,2026-04-04,2026-04-04 14:36,daniel tobiloba
-Terrence Hill Jr.,PG,SO,6-3,180,,Expected,,,"Portland, OR",On3,2026-04-04,2026-04-04 14:36,terrence hill
-Michael McNair,SG,JR,5-6,185,,Expected,,,"Temecula, CA",On3,2026-04-04,2026-04-04 14:36,michael mcnair
 Jacari Brim,PG,FR,6-2,180,,Expected,,,"Clemmons, NC",On3,2026-04-04,2026-04-04 14:36,jacari brim
+Michael McNair,SG,JR,5-6,185,,Expected,,,"Temecula, CA",On3,2026-04-04,2026-04-04 14:36,michael mcnair
+Terrence Hill Jr.,PG,SO,6-3,180,,Expected,,,"Portland, OR",On3,2026-04-04,2026-04-04 14:36,terrence hill
+Daniel Tobiloba,C,JR,6-11,230,,Expected,,,"Des Moines, IA",On3,2026-04-04,2026-04-04 14:36,daniel tobiloba
+Kaleb Smith,PF,JR,,200,,Expected,,,"Rancho Cucamonga, CA",On3,2026-04-04,2026-04-04 14:36,kaleb smith
+Anouar Mellouk,PF,RS-SR,6-8,,,Expected,Morehead State,,,On3,2026-04-04,2026-04-04 14:36,anouar mellouk
+AJ Lopez,CG,RS-SR,5-6,170,,Expected,,,"Queens Village, NY",On3,2026-04-04,2026-04-04 14:36,aj lopez
+Yuto Yamanouchi-Williams,PF,RS-JR,6-9,205,,Expected,,,"Los Angeles, CA",On3,2026-04-04,2026-04-04 14:36,yuto yamanouchiwilliams
+Mark Lavrenov,PF,FR,6-8,220,,Expected,,,"Rocklin, CA",On3,2026-04-04,2026-04-04 14:36,mark lavrenov
+Mekhi Conner,PG,SO,6-1,,,Expected,Sacred Heart,,"New Haven, CT",On3,2026-04-04,2026-04-04 14:36,mekhi conner
+Garrett Johnson,SF,RS-JR,6-8,220,,Expected,,,"Alexandria, VA",On3,2026-04-04,2026-04-04 14:36,garrett johnson
+Ramone Seals,SF,SO,5-6,190,,Expected,,,"Tampa, FL",On3,2026-04-04,2026-04-04 14:36,ramone seals
+Ernest Shelton,CG,JR,5-6,180,,Expected,,,"Philadelphia, PA",On3,2026-04-04,2026-04-04 14:36,ernest shelton
+Cooper Campbell,CG,SO,6-2,195,,Expected,,,"Phoenix, AZ",On3,2026-04-04,2026-04-04 14:36,cooper campbell
+Travelle Bryson,SF,SO,5-6,185,,Expected,,,"Anderson, SC",On3,2026-04-04,2026-04-04 14:36,travelle bryson
+Quel'Ron House,CG,SO,6-0,180,,Expected,,,"Louisville, KY",On3,2026-04-04,2026-04-04 14:36,quelron house
+Jayden Fort,PF,SO,6-8,,,Expected,Georgetown,,"Washington, DC",On3,2026-04-04,2026-04-04 14:36,jayden fort
+Elijah Duval,PG,FR,6-2,175,,Expected,,,"Stuart, FL",On3,2026-04-04,2026-04-04 14:36,elijah duval
+Mikkel Tyne,CG,JR,5-10,,,Expected,Richmond,,"Cumberland, MD",On3,2026-04-04,2026-04-04 14:36,mikkel tyne
+Aaron Powell,PG,SO,6-1,,,Expected,Rice,,"Valley Village, CA",On3,2026-04-04,2026-04-04 14:36,aaron powell
+Dallas Washington,PF,FR,6-8,195,,Expected,,,"Rancho Santa Margarita, CA",On3,2026-04-04,2026-04-04 14:36,dallas washington
+Brent Bland,SG,RS-SR,6-3,205,,Expected,,,"Huntington Station, NY",On3,2026-04-04,2026-04-04 14:36,brent bland
+Shaheed Solebo,SG,RS-FR,6-4,205,,Expected,,,"Chicago, IL",On3,2026-04-04,2026-04-04 14:36,shaheed solebo
+Johan Munch,PF,SO,6-11,200,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,johan munch
 Karter Knox,SF,SO,6-6,211,,Expected,,,"Riverview, FL",On3,2026-04-04,2026-04-04 14:36,karter knox
 AJ Dancler,PG,JR,,180,,Expected,,,"Indianapolis, IN",On3,2026-04-04,2026-04-04 14:36,aj dancler
 Caleb Sanders,SG,FR,5-6,190,,Expected,,,"Tampa, FL",On3,2026-04-04,2026-04-04 14:36,caleb sanders
 Alier Maluk,C,SO,6-10,180,,Expected,,,"Pittsburgh, PA",On3,2026-04-04,2026-04-04 14:36,alier maluk
-Jimmie Williams,SG,JR,5-6,210,,Expected,,,"Solon, OH",On3,2026-04-04,2026-04-04 14:36,jimmie williams
-Kamrin Oriol,SG,SR,6-3,187,,Expected,,,"Saint Petersburg, FL",On3,2026-04-04,2026-04-04 14:36,kamrin oriol
-Layne Taylor,PG,SO,5-9,175,,Expected,,,"Farmington, AR",On3,2026-04-04,2026-04-04 14:36,layne taylor
-Chancellor White,SG,SR,5-6,175,,Expected,,,"Richmond, TX",On3,2026-04-04,2026-04-04 14:36,chancellor white
-Cooper Bowser,PF,JR,6-11,,,Expected,Furman,,"Woodbridge, VA",On3,2026-04-04,2026-04-04 14:36,cooper bowser
-Dennis Evans,C,JR,7-1,210,,Expected,,,"Riverside, CA",On3,2026-04-04,2026-04-04 14:36,dennis evans
-Brandon Morgan,SG,SR,6-4,180,,Expected,,,"Greensboro, NC",On3,2026-04-04,2026-04-04 14:36,brandon morgan
-Cobi Campbell,SG,SR,6-2,195,,Expected,,,"Puyallup, WA",On3,2026-04-04,2026-04-04 14:36,cobi campbell
-Quaran McPherson,PG,RS-SR,6-3,,,Expected,UAB,,"Woodstock, CT",On3,2026-04-04,2026-04-04 14:36,quaran mcpherson
-Marqui Worthy,SG,JR,6-3,180,,Expected,,,"Garden Grove, CA",On3,2026-04-04,2026-04-04 14:36,marqui worthy
-Ron Jessamy,PF,JR,6-8,200,,Expected,,,"Mouth Of Wilson, VA",On3,2026-04-04,2026-04-04 14:36,ron jessamy
-Jan Vide,CG,JR,6-6,200,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,jan vide
-Ja'Corey Robinson,PG,FR,6-6,205,,Expected,,,"Topeka, KS",On3,2026-04-04,2026-04-04 14:36,jacorey robinson
-Leon Horner,SG,SO,5-6,195,,Expected,,,"Frisco, TX",On3,2026-04-04,2026-04-04 14:36,leon horner
-Daniel Egbuniwe,SF,SR,7-6,210,,Expected,,,"Memphis, TN",On3,2026-04-04,2026-04-04 14:36,daniel egbuniwe
-Andrew Meadow,PF,JR,7-6,,,Expected,Boise State,,"Stevenson Ranch, CA",On3,2026-04-04,2026-04-04 14:36,andrew meadow
-Cooper Schwieger,PF,JR,6-10,,,Expected,Wake Forest,,"Overland Park, KS",On3,2026-04-04,2026-04-04 14:36,cooper schwieger
-Darryl Simmons II,PG,JR,5-10,160,,Expected,,,"Detroit, MI",On3,2026-04-04,2026-04-04 14:36,darryl simmons
-Javoy Thompson,SF,JR,5-6,195,,Expected,,,"Bronx, NY",On3,2026-04-04,2026-04-04 14:36,javoy thompson
-Camren Hunter,PG,SR,6-3,200,,Expected,,,"Bryant, AR",On3,2026-04-04,2026-04-04 14:36,camren hunter
-Jordan Marsh,PG,JR,5-10,165,,Expected,,,"Charlotte, NC",On3,2026-04-04,2026-04-04 14:36,jordan marsh
-Corey Caulker,PG,SO,6-0,175,,Expected,,,"Sterling, VA",On3,2026-04-04,2026-04-04 14:36,corey caulker
-Youri Fritz,PF,SR,6-9,220,,Entered,,,,On3,2026-04-04,2026-04-04 14:36,youri fritz
 Landen Joseph,PG,FR,6-2,,,Expected,Marshall,,"Fort Lauderdale, FL",On3,2026-04-04,2026-04-04 14:36,landen joseph
-Ernest Shelton,CG,JR,5-6,180,,Expected,,,"Philadelphia, PA",On3,2026-04-04,2026-04-04 14:36,ernest shelton
-Brody Robinson,PG,SR,5-11,160,,Expected,,,"Houston, TX",On3,2026-04-04,2026-04-04 14:36,brody robinson
-Josiah Davis,PG,SR,6-1,190,,Expected,,,"Scott Depot, WV",On3,2026-04-04,2026-04-04 14:36,josiah davis
-Dontae Horne,SG,SR,6-4,190,,Expected,,,"Memphis, TN",On3,2026-04-04,2026-04-04 14:36,dontae horne
-Gabe Warren,SF,JR,6-6,195,,Expected,,,"Plano, TX",On3,2026-04-04,2026-04-04 14:36,gabe warren
-Zaon Collins,PG,JR,6-1,165,,Expected,,,"Las Vegas, NV",On3,2026-04-04,2026-04-04 14:36,zaon collins
-Shelton Williams-Dryden,SF,SR,6-6,220,,Expected,,,"Milwaukee, WI",On3,2026-04-04,2026-04-04 14:36,shelton williamsdryden
-Michael Cooper,CG,FR,6-3,185,,Expected,,,"Jeffersonville, IN",On3,2026-04-04,2026-04-04 14:36,michael cooper
-Larry Hughes II,SG,SR,6-4,185,,Expected,,,"Saint Louis, MO",On3,2026-04-04,2026-04-04 14:36,larry hughes
-Brandon Benjamin,PF,FR,6-8,235,,Expected,,,"Newark, NJ",On3,2026-04-04,2026-04-04 14:36,brandon benjamin
-Naas Cunningham,SF,SO,7-6,180,,Expected,,,"West Orange, NJ",On3,2026-04-04,2026-04-04 14:36,naas cunningham
-Roman Siulepa,PF,FR,6-6,220,,Expected,,,"Brisbane, QLD",On3,2026-04-04,2026-04-04 14:36,roman siulepa
-Daniel Guetta,CG,FR,,180,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,daniel guetta
-Shahid Muhammad,C,SR,6-10,205,,Expected,,,"Queens Village, NY",On3,2026-04-04,2026-04-04 14:36,shahid muhammad
-Luke Wilson,C,RS-SO,6-9,260,,Expected,,,"Augusta, GA",On3,2026-04-04,2026-04-04 14:36,luke wilson
-Francis Folefac,PF,FR,7-6,245,,Expected,,,"Lanham, MD",On3,2026-04-04,2026-04-04 14:36,francis folefac
-Owen Bronston Jr.,SG,JR,,205,,Expected,,,"Fairfield, OH",On3,2026-04-04,2026-04-04 14:36,owen bronston
-Noah Boyde,PF,SR,7-0,230,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,noah boyde
-Filip Radakovic,SG,FR,7-6,,,Expected,UT Martin,,,On3,2026-04-04,2026-04-04 14:36,filip radakovic
-Will Underwood,PG,JR,6-3,,,Expected,Wake Forest,,"Minneapolis, MN",On3,2026-04-04,2026-04-04 14:36,will underwood
-Jerquarius Stanback,SF,RS-FR,6-9,210,,Expected,,,"Asheboro, NC",On3,2026-04-04,2026-04-04 14:36,jerquarius stanback
-Kareem Thomas,SG,SO,5-6,,,Expected,Dartmouth,,"Wilmington, DE",On3,2026-04-04,2026-04-04 14:36,kareem thomas
-Carlsheon Young,CG,FR,6-4,,,Expected,Pacific,,"Oklahoma City, OK",On3,2026-04-04,2026-04-04 14:36,carlsheon young
-Tyler Boston,PG,SO,6-0,185,,Expected,,,"Potomac, MD",On3,2026-04-04,2026-04-04 14:36,tyler boston
-Adante Holiman,PG,SR,5-9,160,,Expected,,,"Mcalester, OK",On3,2026-04-04,2026-04-04 14:36,adante holiman
-Michael Eley,SG,SR,6-4,188,,Entered,,,"Fort Wayne, IN",On3,2026-04-04,2026-04-04 14:36,michael eley
-Marlon Barnes Jr.,SF,JR,6-6,180,,Expected,,,"Cleveland, OH",On3,2026-04-04,2026-04-04 14:36,marlon barnes
-Amar Kuljuhovic,PF,SR,6-8,225,,Entered,,,"Waterloo, IA",On3,2026-04-04,2026-04-04 14:36,amar kuljuhovic
-Tylik Weeks,PF,JR,7-6,,,Expected,Southern Miss,,"Brooklyn, NY",On3,2026-04-04,2026-04-04 14:36,tylik weeks
-KJ Thomas,PG,SO,6-1,175,,Expected,,,"Canyon, TX",On3,2026-04-04,2026-04-04 14:36,kj thomas
-Sebastian Robinson,SG,JR,6-3,,,Expected,New Jersey Institute of Technology,,"Montclair, NJ",On3,2026-04-04,2026-04-04 14:36,sebastian robinson
-Cameron Patterson,SG,RS-FR,6-4,175,,Expected,,,"Humble, TX",On3,2026-04-04,2026-04-04 14:36,cameron patterson
-Augustinas Kiudulas,PF,JR,6-8,215,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,augustinas kiudulas
-Javan Buchanan,SF,SR,7-6,230,,Entered,,,"Lafayette, IN",On3,2026-04-04,2026-04-04 14:36,javan buchanan
-Nyle Ralph-Beyer,SG,SO,6-4,175,,Expected,,,"West Chester, PA",On3,2026-04-04,2026-04-04 14:36,nyle ralphbeyer
-K'Jei Parker,CG,JR,6-2,185,,Expected,,,"Winter Haven, FL",On3,2026-04-04,2026-04-04 14:36,kjei parker
-Hudson Mayes,SG,FR,,200,,Expected,,,"Redondo Beach, CA",On3,2026-04-04,2026-04-04 14:36,hudson mayes
-Kalu Anya,PF,SR,6-8,215,,Expected,,,"Worcester, MA",On3,2026-04-04,2026-04-04 14:36,kalu anya
-Tijan Saine Jr.,PG,RS-JR,5-10,175,,Expected,,,"Everett, WA",On3,2026-04-04,2026-04-04 14:36,tijan saine
-Noah Norgaard,CG,FR,6-2,195,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,noah norgaard
-Franck Emmou,SG,JR,5-6,190,,Expected,,,"Mansfield, TX",On3,2026-04-04,2026-04-04 14:36,franck emmou
-Aleks Szymczyk,PF,SR,6-10,240,,Entered,,,,On3,2026-04-04,2026-04-04 14:36,aleks szymczyk
-Max Burton,PF,SR,6-9,230,,Entered,,,"Williamston, MI",On3,2026-04-04,2026-04-04 14:36,max burton
-Joshua Wyche,SF,JR,7-6,215,,Entered,,,"Philadelphia, PA",On3,2026-04-04,2026-04-04 14:36,joshua wyche
-Justin Neely,SF,SR,5-6,200,,Expected,,,"Orlando, FL",On3,2026-04-04,2026-04-04 14:36,justin neely
-TJ Johnson,SF,RS-JR,6-6,195,,Expected,,,"Temple, TX",On3,2026-04-04,2026-04-04 14:36,tj johnson
-Henri Adiassa,C,RS-JR,6-11,240,,Entered,,,"Santa Monica, CA",On3,2026-04-04,2026-04-04 14:36,henri adiassa
-Frankquon Sherman,SF,JR,6-6,195,,Expected,,,"Grovetown, GA",On3,2026-04-04,2026-04-04 14:36,frankquon sherman
-Eddie Ricks III,SF,JR,7-6,185,,Expected,,,"Clarksville, TN",On3,2026-04-04,2026-04-04 14:36,eddie ricks
-Miles Webb,PF,SR,6-8,190,,Expected,,,"Alexandria, VA",On3,2026-04-04,2026-04-04 14:36,miles webb
-Riccardo Greppi,PF,SO,6-10,200,,Expected,,,"Rome, Rome",On3,2026-04-04,2026-04-04 14:36,riccardo greppi
-Kjay Bradley Jr.,PG,SR,6-1,185,,Expected,,,"Los Angeles, CA",On3,2026-04-04,2026-04-04 14:36,kjay bradley
-Rolyns Aligbe,PF,SO,6-9,240,,Expected,,,"Minneapolis, MN",On3,2026-04-04,2026-04-04 14:36,rolyns aligbe
-Luke Almodovar,SG,JR,6-3,190,,Expected,,,"Noblesville, IN",On3,2026-04-04,2026-04-04 14:36,luke almodovar
-Victor Valdes,SF,JR,7-6,235,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,victor valdes
+Youri Fritz,PF,SR,6-9,220,,Entered,,,,On3,2026-04-04,2026-04-04 14:36,youri fritz
+Corey Caulker,PG,SO,6-0,175,,Expected,,,"Sterling, VA",On3,2026-04-04,2026-04-04 14:36,corey caulker
+Jordan Marsh,PG,JR,5-10,165,,Expected,,,"Charlotte, NC",On3,2026-04-04,2026-04-04 14:36,jordan marsh
+Camren Hunter,PG,SR,6-3,200,,Expected,,,"Bryant, AR",On3,2026-04-04,2026-04-04 14:36,camren hunter
+Darryl Simmons II,PG,JR,5-10,160,,Expected,,,"Detroit, MI",On3,2026-04-04,2026-04-04 14:36,darryl simmons
+Cooper Schwieger,PF,JR,6-10,,,Expected,Wake Forest,,"Overland Park, KS",On3,2026-04-04,2026-04-04 14:36,cooper schwieger
+Andrew Meadow,PF,JR,7-6,,,Expected,Boise State,,"Stevenson Ranch, CA",On3,2026-04-04,2026-04-04 14:36,andrew meadow
+Daniel Egbuniwe,SF,SR,7-6,210,,Expected,,,"Memphis, TN",On3,2026-04-04,2026-04-04 14:36,daniel egbuniwe
+Leon Horner,SG,SO,5-6,195,,Expected,,,"Frisco, TX",On3,2026-04-04,2026-04-04 14:36,leon horner
+Ja'Corey Robinson,PG,FR,6-6,205,,Expected,,,"Topeka, KS",On3,2026-04-04,2026-04-04 14:36,jacorey robinson
+Jan Vide,CG,JR,6-6,200,,Expected,,,,On3,2026-04-04,2026-04-04 14:36,jan vide
+Ron Jessamy,PF,JR,6-8,200,,Expected,,,"Mouth Of Wilson, VA",On3,2026-04-04,2026-04-04 14:36,ron jessamy
+Marqui Worthy,SG,JR,6-3,180,,Expected,,,"Garden Grove, CA",On3,2026-04-04,2026-04-04 14:36,marqui worthy
+Quaran McPherson,PG,RS-SR,6-3,,,Expected,UAB,,"Woodstock, CT",On3,2026-04-04,2026-04-04 14:36,quaran mcpherson
+Cobi Campbell,SG,SR,6-2,195,,Expected,,,"Puyallup, WA",On3,2026-04-04,2026-04-04 14:36,cobi campbell
+Brandon Morgan,SG,SR,6-4,180,,Expected,,,"Greensboro, NC",On3,2026-04-04,2026-04-04 14:36,brandon morgan
+Dennis Evans,C,JR,7-1,210,,Expected,,,"Riverside, CA",On3,2026-04-04,2026-04-04 14:36,dennis evans
+Cooper Bowser,PF,JR,6-11,,,Expected,Furman,,"Woodbridge, VA",On3,2026-04-04,2026-04-04 14:36,cooper bowser
+Chancellor White,SG,SR,5-6,175,,Expected,,,"Richmond, TX",On3,2026-04-04,2026-04-04 14:36,chancellor white
+Layne Taylor,PG,SO,5-9,175,,Expected,,,"Farmington, AR",On3,2026-04-04,2026-04-04 14:36,layne taylor
+Kamrin Oriol,SG,SR,6-3,187,,Expected,,,"Saint Petersburg, FL",On3,2026-04-04,2026-04-04 14:36,kamrin oriol
+Jimmie Williams,SG,JR,5-6,210,,Expected,,,"Solon, OH",On3,2026-04-04,2026-04-04 14:36,jimmie williams
 Josh Dixon,PG,FR,6-1,165,,Expected,,,"Milton, GA",On3,2026-04-04,2026-04-04 14:36,josh dixon
