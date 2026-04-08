@@ -148,6 +148,34 @@ def merge(new_players, output_path="portal_entries.csv"):
     # Dedup — keep highest rating
     ex['_r']=pd.to_numeric(ex['On3Rating'],errors='coerce').fillna(0)
     ex=ex.sort_values('_r',ascending=False).drop_duplicates(subset='Player',keep='first').drop(columns=['_r'])
+
+    # ── Backfill LastTeam from Book2_enriched.csv ──
+    # Book2_enriched has Player + Team columns from CBBD
+    book2_candidates = [
+        os.path.join(os.path.dirname(os.path.abspath(output_path)), 'Book2_enriched.csv'),
+        'Book2_enriched.csv',
+        os.path.join(os.path.dirname(os.path.abspath(output_path)), 'Book2.csv'),
+        'Book2.csv',
+    ]
+    book2_path = next((p for p in book2_candidates if os.path.exists(p)), None)
+    if book2_path:
+        try:
+            b2 = pd.read_csv(book2_path, encoding='utf-8-sig', usecols=['Player','Team'])
+            team_lookup = {_norm(r['Player']): r['Team'] for _, r in b2.iterrows()
+                           if str(r.get('Team','')).strip()}
+            filled = 0
+            for idx, row in ex.iterrows():
+                last = str(row.get('LastTeam','')).strip()
+                if not last or last in ('nan',''):
+                    key = _norm(row['Player'])
+                    if key in team_lookup:
+                        ex.at[idx,'LastTeam'] = team_lookup[key]
+                        filled += 1
+            if filled:
+                print(f"  Backfilled LastTeam for {filled} players from {os.path.basename(book2_path)}")
+        except Exception as e:
+            print(f"  [WARN] Could not backfill from Book2: {e}")
+
     ex['_s']=pd.to_numeric(ex['On3Rating'],errors='coerce')
     ex=ex.sort_values('_s',ascending=False,na_position='last').drop(columns=['_s']).reset_index(drop=True)
     ex.to_csv(output_path,index=False)

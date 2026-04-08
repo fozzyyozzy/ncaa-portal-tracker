@@ -792,7 +792,7 @@ Then commit `player_scores.parquet` to GitHub.
 
             score_cols = ['PTS','Tot','AST','TS%','eFGPct','DEF_comp',
                           'PER','PortalScore','FinalScore','NILValue',
-                          'Conference','Elig']
+                          'Conference','Elig','Team']
 
             merged_rows = []
             for _, p in portal_df.iterrows():
@@ -803,6 +803,10 @@ Then commit `player_scores.parquet` to GitHub.
                     for c in score_cols:
                         if c in sr.index:
                             row_data[f'__{c}'] = sr[c]
+                    # Backfill LastTeam from CBBD Team if blank
+                    last = str(row_data.get('LastTeam','')).strip()
+                    if (not last or last in ('','nan')) and 'Team' in sr.index:
+                        row_data['LastTeam'] = sr['Team']
                 merged_rows.append(row_data)
 
             merged = pd.DataFrame(merged_rows)
